@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Der · Die · Das — German Nouns</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17211b;
+      --muted: #69736d;
+      --paper: #f4f1e9;
+      --card: rgba(255, 255, 255, .72);
+      --line: rgba(23, 33, 27, .12);
+      --der: #315f9a;
+      --die: #a54151;
+      --das: #39765a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(49, 95, 154, .10), transparent 28rem),
+        radial-gradient(circle at 92% 0%, rgba(57, 118, 90, .10), transparent 28rem),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      width: min(1480px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 48px 0 26px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.3rem, 5vw, 4.8rem);
+      font-weight: 500;
+      letter-spacing: -.055em;
+      line-height: .95;
+    }
+
+    h1 span:nth-child(1) { color: var(--der); }
+    h1 span:nth-child(2) { color: var(--die); }
+    h1 span:nth-child(3) { color: var(--das); }
+
+    .intro {
+      max-width: 440px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.5;
+    }
+
+    .controls { width: min(440px, 100%); }
+
+    .limit-controls {
+      display: grid;
+      grid-template-columns: repeat(3, auto) minmax(6rem, 1fr);
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    .heuristic-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    .heuristic-controls button {
+      padding: 7px 11px;
+      font-size: .78rem;
+    }
+
+    .heuristic-controls .feminine { color: var(--die); }
+    .heuristic-controls .neuter { color: var(--das); }
+    .heuristic-controls button.active { color: white; }
+
+    button, input[type="number"] {
+      min-width: 0;
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .72);
+      color: var(--ink);
+      font: inherit;
+    }
+
+    button { cursor: pointer; }
+    button:hover { background: white; }
+    button.active {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: white;
+    }
+
+    input[type="number"] { width: 100%; }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      outline: none;
+      background: rgba(255, 255, 255, .72);
+      color: var(--ink);
+      font: inherit;
+      box-shadow: 0 8px 30px rgba(23, 33, 27, .04);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: rgba(23, 33, 27, .4);
+      box-shadow: 0 0 0 3px rgba(23, 33, 27, .06);
+    }
+
+    input[aria-invalid="true"] {
+      border-color: var(--die);
+      box-shadow: 0 0 0 3px rgba(165, 65, 81, .10);
+    }
+
+    main {
+      width: min(1480px, calc(100% - 40px));
+      margin: 28px auto 60px;
+    }
+
+    #status {
+      padding: 60px 0;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .column {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+      box-shadow: 0 16px 45px rgba(23, 33, 27, .055);
+      backdrop-filter: blur(10px);
+    }
+
+    .column-head {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 20px 22px 16px;
+      border-top: 5px solid var(--accent);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, .92);
+    }
+
+    .column-head h2 {
+      margin: 0;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    .column-head p, .count {
+      margin: 0;
+      color: var(--muted);
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .noun-list { margin: 0; padding: 0; list-style: none; }
+
+    .noun {
+      display: grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: baseline;
+      padding: 11px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .noun:last-child { border-bottom: 0; }
+    .noun:hover { background: rgba(255, 255, 255, .66); }
+
+    .rank, .frequency {
+      color: var(--muted);
+      font-size: .72rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .word {
+      overflow-wrap: anywhere;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.05rem;
+    }
+
+    .frequency { text-align: right; }
+
+    .empty {
+      padding: 42px 20px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 780px) {
+      header { align-items: stretch; flex-direction: column; padding-top: 34px; }
+      .controls { width: 100%; }
+      .columns { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1><span>der</span> · <span>die</span> · <span>das</span></h1>
+      <p class="intro">Frequently used German noun lemmas, grouped by grammatical gender and ranked by frequency in the Leipzig corpus.</p>
+    </div>
+    <div class="controls">
+      <label>Number of top-ranked nouns</label>
+      <div class="limit-controls">
+        <button type="button" data-limit="100">100</button>
+        <button type="button" data-limit="1000">1,000</button>
+        <button type="button" data-limit="10000">10,000</button>
+        <input id="limit" type="number" min="1" max="10000" step="1" value="10000" aria-label="Custom number of nouns">
+      </div>
+      <label>Ending heuristics</label>
+      <div class="heuristic-controls">
+        <button class="feminine" type="button" data-regex="e$">die · -e</button>
+        <button class="feminine" type="button" data-regex="ung$">die · -ung</button>
+        <button class="feminine" type="button" data-regex="ion$">die · -ion</button>
+        <button class="feminine" type="button" data-regex="keit$">die · -keit</button>
+      </div>
+      <label for="search">Find a noun · regular expression</label>
+      <input id="search" type="search" placeholder="Try ^Haus$ or (ung|keit)$" autocomplete="off" spellcheck="false">
+    </div>
+  </header>
+
+  <main>
+    <div id="status">Loading nouns…</div>
+    <div class="columns" id="columns" hidden>
+      <section class="column" style="--accent: var(--der)">
+        <div class="column-head"><div><h2>der</h2><p>Masculine</p></div><span class="count" id="m-count"></span></div>
+        <ol class="noun-list" id="m-list"></ol>
+      </section>
+      <section class="column" style="--accent: var(--die)">
+        <div class="column-head"><div><h2>die</h2><p>Feminine</p></div><span class="count" id="f-count"></span></div>
+        <ol class="noun-list" id="f-list"></ol>
+      </section>
+      <section class="column" style="--accent: var(--das)">
+        <div class="column-head"><div><h2>das</h2><p>Neuter</p></div><span class="count" id="n-count"></span></div>
+        <ol class="noun-list" id="n-list"></ol>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const genders = {
+      m: { list: document.querySelector('#m-list'), count: document.querySelector('#m-count') },
+      f: { list: document.querySelector('#f-list'), count: document.querySelector('#f-count') },
+      n: { list: document.querySelector('#n-list'), count: document.querySelector('#n-count') }
+    };
+    const status = document.querySelector('#status');
+    const columns = document.querySelector('#columns');
+    const search = document.querySelector('#search');
+    const limitInput = document.querySelector('#limit');
+    const limitButtons = [...document.querySelectorAll('[data-limit]')];
+    const heuristicButtons = [...document.querySelectorAll('[data-regex]')];
+    let nouns = [];
+    let limit = 10000;
+
+    const number = new Intl.NumberFormat('en');
+    const escapeHtml = value => value.replace(/[&<>'"]/g, char => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    })[char]);
+
+    function normalizeLimit(value) {
+      const parsed = Number.parseInt(value, 10);
+      return Number.isFinite(parsed) ? Math.min(10000, Math.max(1, parsed)) : 10000;
+    }
+
+    function setLimit(value, updateUrl = true) {
+      limit = normalizeLimit(value);
+      limitInput.value = limit;
+      limitButtons.forEach(button => {
+        button.classList.toggle('active', Number(button.dataset.limit) === limit);
+      });
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('top', limit);
+        history.replaceState(null, '', url);
+      }
+      if (nouns.length) render(search.value);
+    }
+
+    function render(query = '') {
+      const pattern = query.trim();
+      const selected = nouns.slice(0, limit);
+      let matcher = null;
+      try {
+        matcher = pattern ? new RegExp(pattern, 'iu') : null;
+        search.setAttribute('aria-invalid', 'false');
+        search.title = '';
+      } catch (error) {
+        search.setAttribute('aria-invalid', 'true');
+        search.title = error.message;
+        return;
+      }
+      heuristicButtons.forEach(button => {
+        button.classList.toggle('active', button.dataset.regex === pattern);
+      });
+      const matches = matcher
+        ? selected.filter(noun => matcher.test(noun.lemma))
+        : selected;
+
+      for (const [gender, target] of Object.entries(genders)) {
+        const items = matches.filter(noun => noun.genders.includes(gender));
+        target.count.textContent = `${number.format(items.length)} nouns`;
+        target.list.innerHTML = items.length
+          ? items.map(noun => `
+              <li class="noun">
+                <span class="rank">#${number.format(noun.rank)}</span>
+                <span class="word">${escapeHtml(noun.lemma)}</span>
+                <span class="frequency" title="Corpus frequency">${number.format(noun.frequency)}</span>
+              </li>`).join('')
+          : '<li class="empty">No matching nouns</li>';
+      }
+    }
+
+    setLimit(new URLSearchParams(window.location.search).get('top') || 10000, false);
+
+    fetch('./german-nouns-top-10000.json')
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        nouns = data;
+        status.hidden = true;
+        columns.hidden = false;
+        render();
+      })
+      .catch(error => {
+        status.innerHTML = `Could not load the noun data.<br><small>${escapeHtml(error.message)} — serve this directory through a local web server instead of opening the file directly.</small>`;
+      });
+
+    search.addEventListener('input', event => render(event.target.value));
+    heuristicButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        search.value = button.dataset.regex;
+        render(search.value);
+        search.focus();
+      });
+    });
+    limitButtons.forEach(button => {
+      button.addEventListener('click', () => setLimit(button.dataset.limit));
+    });
+    limitInput.addEventListener('change', event => setLimit(event.target.value));
+    limitInput.addEventListener('keydown', event => {
+      if (event.key === 'Enter') setLimit(event.currentTarget.value);
+    });
+    window.addEventListener('popstate', () => {
+      setLimit(new URLSearchParams(window.location.search).get('top') || 10000, false);
+    });
+  </script>
+</body>
+</html>

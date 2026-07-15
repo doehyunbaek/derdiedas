@@ -860,12 +860,10 @@
     "rank": 78,
     "lemma": "Kunde",
     "articles": [
-      "der",
-      "die"
+      "der"
     ],
     "genders": [
-      "m",
-      "f"
+      "m"
     ],
     "frequency": 1527
   },
@@ -1951,11 +1949,9 @@
     "rank": 177,
     "lemma": "Foto",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 993
@@ -2043,12 +2039,10 @@
     "rank": 185,
     "lemma": "Meter",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
     "frequency": 965
   },
@@ -2353,11 +2347,9 @@
     "rank": 213,
     "lemma": "Tor",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 903
@@ -4130,12 +4122,10 @@
     "rank": 374,
     "lemma": "Moment",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
     "frequency": 592
   },
@@ -7126,12 +7116,10 @@
     "rank": 644,
     "lemma": "Erkenntnis",
     "articles": [
-      "die",
-      "das"
+      "die"
     ],
     "genders": [
-      "f",
-      "n"
+      "f"
     ],
     "frequency": 367
   },
@@ -10163,11 +10151,9 @@
     "rank": 919,
     "lemma": "Wende",
     "articles": [
-      "der",
       "die"
     ],
     "genders": [
-      "m",
       "f"
     ],
     "frequency": 254
@@ -11884,11 +11870,9 @@
     "rank": 1074,
     "lemma": "Gründung",
     "articles": [
-      "der",
       "die"
     ],
     "genders": [
-      "m",
       "f"
     ],
     "frequency": 218
@@ -15435,11 +15419,9 @@
     "rank": 1395,
     "lemma": "Messer",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 157
@@ -16834,11 +16816,9 @@
     "rank": 1522,
     "lemma": "Mode",
     "articles": [
-      "der",
       "die"
     ],
     "genders": [
-      "m",
       "f"
     ],
     "frequency": 140
@@ -34909,11 +34889,9 @@
     "rank": 3157,
     "lemma": "Disco",
     "articles": [
-      "der",
       "die"
     ],
     "genders": [
-      "m",
       "f"
     ],
     "frequency": 54
@@ -35276,11 +35254,9 @@
     "rank": 3190,
     "lemma": "Butter",
     "articles": [
-      "der",
       "die"
     ],
     "genders": [
-      "m",
       "f"
     ],
     "frequency": 53
@@ -45132,11 +45108,9 @@
     "rank": 4082,
     "lemma": "Thermometer",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 38
@@ -45976,11 +45950,9 @@
     "rank": 4158,
     "lemma": "Silvester",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 37
@@ -51885,11 +51857,9 @@
     "rank": 4693,
     "lemma": "Poster",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 31
@@ -53714,12 +53684,10 @@
     "rank": 4858,
     "lemma": "Ersparnis",
     "articles": [
-      "die",
-      "das"
+      "die"
     ],
     "genders": [
-      "f",
-      "n"
+      "f"
     ],
     "frequency": 29
   },
@@ -75666,11 +75634,9 @@
     "rank": 6848,
     "lemma": "Barometer",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 17
@@ -78235,11 +78201,9 @@
     "rank": 7081,
     "lemma": "Zepter",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 17
@@ -78969,11 +78933,9 @@
     "rank": 7147,
     "lemma": "Embryo",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 16
@@ -83829,12 +83791,10 @@
     "rank": 7587,
     "lemma": "Pauschale",
     "articles": [
-      "die",
-      "das"
+      "die"
     ],
     "genders": [
-      "f",
-      "n"
+      "f"
     ],
     "frequency": 15
   },
@@ -83897,11 +83857,9 @@
     "rank": 7593,
     "lemma": "Polster",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 15

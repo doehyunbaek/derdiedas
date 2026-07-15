@@ -15,8 +15,31 @@ COUNTS = ROOT / "german-noun-lemma-counts.json"
 GENDERS = ROOT / "kaikki-german-noun-genders.json"
 GENDER_ORDER = ("masculine", "feminine", "neuter")
 ARTICLES = {"masculine": "der", "feminine": "die", "neuter": "das"}
-# Prefer the ordinary currency sense over "die Euro" (short for Europameisterschaft).
-GENDER_OVERRIDES = {"Euro": {"masculine"}}
+# Prefer selected common standard senses over rare homographs and regional variants.
+GENDER_OVERRIDES = {
+    "Barometer": {"neuter"},
+    "Butter": {"feminine"},
+    "Disco": {"feminine"},
+    "Embryo": {"neuter"}, # Pascal says "Embryo can be both"
+    "Erkenntnis": {"feminine"},
+    "Ersparnis": {"feminine"},  # neuter is Austrian
+    "Euro": {"masculine"},
+    "Foto": {"neuter"},
+    "Gründung": {"feminine"},
+    "Kunde": {"masculine"},
+    "Messer": {"neuter"},
+    "Meter": {"masculine"},
+    "Mode": {"feminine"},
+    "Moment": {"masculine"},
+    "Pauschale": {"feminine"},  # neuter is Austrian
+    "Polster": {"neuter"},  # masculine is Austrian
+    "Poster": {"neuter"},
+    "Silvester": {"neuter"},
+    "Thermometer": {"neuter"},
+    "Tor": {"neuter"},
+    "Wende": {"feminine"},
+    "Zepter": {"neuter"},
+}
 
 
 def sentence_texts():

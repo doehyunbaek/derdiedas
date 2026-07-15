@@ -83,8 +83,10 @@
       font-size: .78rem;
     }
 
+    .heuristic-controls .masculine { color: var(--der); }
     .heuristic-controls .feminine { color: var(--die); }
     .heuristic-controls .neuter { color: var(--das); }
+    .heuristic-break { flex-basis: 100%; height: 0; }
     .heuristic-controls button.active { color: white; }
 
     button, input[type="number"] {
@@ -253,10 +255,23 @@
       </div>
       <label>Ending heuristics</label>
       <div class="heuristic-controls">
+        <button class="masculine" type="button" data-regex="er$">der · -er</button>
+        <button class="masculine" type="button" data-regex="ling$">der · -ling</button>
+        <button class="masculine" type="button" data-regex="or$">der · -or</button>
+        <button class="masculine" type="button" data-regex="ist$">der · -ist</button>
+        <button class="masculine" type="button" data-regex="ismus$">der · -ismus</button>
+        <span class="heuristic-break" aria-hidden="true"></span>
         <button class="feminine" type="button" data-regex="e$">die · -e</button>
         <button class="feminine" type="button" data-regex="ung$">die · -ung</button>
         <button class="feminine" type="button" data-regex="ion$">die · -ion</button>
         <button class="feminine" type="button" data-regex="keit$">die · -keit</button>
+        <button class="feminine" type="button" data-regex="ie$">die · -ie</button>
+        <span class="heuristic-break" aria-hidden="true"></span>
+        <button class="neuter" type="button" data-regex="um$">das · -um</button>
+        <button class="neuter" type="button" data-regex="nis$">das · -nis</button>
+        <button class="neuter" type="button" data-regex="o$">das · -o</button>
+        <button class="neuter" type="button" data-regex="ment$">das · -ment</button>
+        <button class="neuter" type="button" data-regex="chen$">das · -chen</button>
       </div>
       <label for="search">Find a noun · regular expression</label>
       <input id="search" type="search" placeholder="Try ^Haus$ or (ung|keit)$" autocomplete="off" spellcheck="false">
@@ -320,6 +335,17 @@
       if (nouns.length) render(search.value);
     }
 
+    function setSearch(value, updateUrl = true) {
+      search.value = value;
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        if (value.trim()) url.searchParams.set('q', value);
+        else url.searchParams.delete('q');
+        history.replaceState(null, '', url);
+      }
+      render(value);
+    }
+
     function render(query = '') {
       const pattern = query.trim();
       const selected = nouns.slice(0, limit);
@@ -354,7 +380,9 @@
       }
     }
 
-    setLimit(new URLSearchParams(window.location.search).get('top') || 10000, false);
+    const initialParams = new URLSearchParams(window.location.search);
+    setLimit(initialParams.get('top') || 10000, false);
+    search.value = initialParams.get('q') || '';
 
     fetch('./german-nouns-top-10000.json')
       .then(response => {
@@ -365,17 +393,16 @@
         nouns = data;
         status.hidden = true;
         columns.hidden = false;
-        render();
+        render(search.value);
       })
       .catch(error => {
         status.innerHTML = `Could not load the noun data.<br><small>${escapeHtml(error.message)} — serve this directory through a local web server instead of opening the file directly.</small>`;
       });
 
-    search.addEventListener('input', event => render(event.target.value));
+    search.addEventListener('input', event => setSearch(event.target.value));
     heuristicButtons.forEach(button => {
       button.addEventListener('click', () => {
-        search.value = button.dataset.regex;
-        render(search.value);
+        setSearch(search.value.trim() === button.dataset.regex ? '' : button.dataset.regex);
         search.focus();
       });
     });
@@ -387,7 +414,9 @@
       if (event.key === 'Enter') setLimit(event.currentTarget.value);
     });
     window.addEventListener('popstate', () => {
-      setLimit(new URLSearchParams(window.location.search).get('top') || 10000, false);
+      const params = new URLSearchParams(window.location.search);
+      search.value = params.get('q') || '';
+      setLimit(params.get('top') || 10000, false);
     });
   </script>
 </body>

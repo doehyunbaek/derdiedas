@@ -18,6 +18,7 @@
     }
 
     * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
 
     body {
       margin: 0;
@@ -28,6 +29,37 @@
         radial-gradient(circle at 92% 0%, rgba(57, 118, 90, .10), transparent 28rem),
         var(--paper);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .category-tabs {
+      width: min(1480px, calc(100% - 40px));
+      margin: 0 auto;
+      padding-top: 20px;
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .category-tabs button {
+      margin-bottom: -1px;
+      padding: 11px 18px;
+      border-radius: 12px 12px 0 0;
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .category-tabs button.active {
+      border-color: var(--line);
+      border-bottom-color: var(--paper);
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .tab-total {
+      margin-left: 5px;
+      color: inherit;
+      font-size: .72rem;
+      font-variant-numeric: tabular-nums;
     }
 
     header {
@@ -53,6 +85,7 @@
     h1 span:nth-child(1) { color: var(--der); }
     h1 span:nth-child(2) { color: var(--die); }
     h1 span:nth-child(3) { color: var(--das); }
+    .aux-title { color: var(--der); }
 
     .intro {
       max-width: 440px;
@@ -160,6 +193,53 @@
       align-items: start;
     }
 
+    .aux-document {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+    }
+
+    .verb-guide { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .verb-card {
+      padding: 24px 26px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card);
+      box-shadow: 0 16px 45px rgba(23, 33, 27, .045);
+    }
+    .verb-number { color: var(--muted); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .verb-card h2 { margin: 5px 0 12px; color: var(--der); font-family: Georgia, "Times New Roman", serif; font-size: 2rem; font-weight: 500; }
+    .verb-card p { margin: 0 0 14px; line-height: 1.65; }
+    .verb-card p:last-child { margin-bottom: 0; }
+    .construction { color: var(--muted); font-size: .84rem; }
+    .example { padding: 12px 14px; border-left: 3px solid var(--der); background: rgba(49, 95, 154, .06); }
+    .example strong { display: block; color: var(--ink); font-weight: 600; }
+    .translation { color: var(--muted); font-size: .88rem; }
+
+    .conjugation-toggle {
+      flex: 0 0 auto;
+      padding-inline: 18px;
+    }
+    .conjugation { overflow-x: auto; margin-top: 18px; border-top: 1px solid var(--line); }
+    .conjugation summary {
+      padding: 14px 0 0;
+      color: var(--der);
+      cursor: pointer;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      list-style: none;
+      text-transform: uppercase;
+    }
+    .conjugation summary::-webkit-details-marker { display: none; }
+    .conjugation summary::after { content: "+"; float: right; font-size: 1rem; }
+    .conjugation[open] summary::after { content: "−"; }
+    .conjugation-table { width: 100%; min-width: 520px; margin-top: 12px; border-collapse: collapse; }
+    .conjugation-table th, .conjugation-table td { padding: 9px 12px; border-top: 1px solid var(--line); text-align: left; }
+    .conjugation-table th { color: var(--muted); font-size: .75rem; font-weight: 500; }
+    .conjugation-table tbody th { width: 25%; }
+    .conjugation-table thead th { font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .conjugation-table td { width: 25%; font-family: Georgia, "Times New Roman", serif; font-size: 1rem; }
+
     .column {
       overflow: hidden;
       border: 1px solid var(--line);
@@ -235,11 +315,17 @@
     @media (max-width: 780px) {
       header { align-items: stretch; flex-direction: column; padding-top: 34px; }
       .controls { width: 100%; }
-      .columns { grid-template-columns: 1fr; }
+      .columns, .verb-guide { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
+  <nav class="category-tabs" role="tablist" aria-label="Wortart">
+    <button class="active" id="nouns-tab" type="button" role="tab" aria-selected="true" aria-controls="nouns-view" data-view="nouns">Nomen <span class="tab-total">10,000</span></button>
+    <button id="aux-tab" type="button" role="tab" aria-selected="false" aria-controls="aux-view" data-view="aux">Hilfsverben <span class="tab-total">9</span></button>
+  </nav>
+
+  <div id="nouns-view" role="tabpanel" aria-labelledby="nouns-tab">
   <header>
     <div>
       <h1><span>der</span> · <span>die</span> · <span>das</span></h1>
@@ -295,6 +381,112 @@
       </section>
     </div>
   </main>
+  </div>
+
+  <div id="aux-view" role="tabpanel" aria-labelledby="aux-tab" hidden>
+    <header>
+      <div>
+        <h1 class="aux-title">Hilfsverben</h1>
+      </div>
+      <button class="conjugation-toggle" id="conjugation-toggle" type="button" aria-expanded="false">Show conjugations</button>
+    </header>
+
+    <main>
+      <article class="aux-document">
+        <div class="verb-guide">
+          <section class="verb-card">
+            <span class="verb-number">01 · to be</span><h2>sein</h2>
+            <p><em>Sein</em> connects a subject with an identity, quality, place, or condition. It also forms the perfect tense of verbs that describe movement or a change of state.</p>
+            <p class="construction">identity or state · <strong>sein + complement</strong><br>perfect · <strong>sein + past participle</strong></p>
+            <p class="example"><strong>Sie ist Ärztin. · Er ist nach Hause gegangen.</strong><span class="translation">She is a doctor. · He has gone home.</span></p>
+            <details class="conjugation"><summary>Konjugation</summary><table class="conjugation-table"><thead><tr><th>Person</th><th>Präsens</th><th>Präteritum</th><th>Konjunktiv II</th></tr></thead><tbody>
+              <tr><th>ich</th><td>bin</td><td>war</td><td>wäre</td></tr><tr><th>du</th><td>bist</td><td>warst</td><td>wärst</td></tr><tr><th>er / sie / es</th><td>ist</td><td>war</td><td>wäre</td></tr><tr><th>wir</th><td>sind</td><td>waren</td><td>wären</td></tr><tr><th>ihr</th><td>seid</td><td>wart</td><td>wärt</td></tr><tr><th>sie / Sie</th><td>sind</td><td>waren</td><td>wären</td></tr>
+            </tbody></table></details>
+          </section>
+
+          <section class="verb-card">
+            <span class="verb-number">02 · to have</span><h2>haben</h2>
+            <p><em>Haben</em> expresses possession and relationships. As an auxiliary, it forms the perfect tense for most German verbs.</p>
+            <p class="construction">possession · <strong>haben + object</strong><br>perfect · <strong>haben + past participle</strong></p>
+            <p class="example"><strong>Ich habe Zeit. · Wir haben lange gewartet.</strong><span class="translation">I have time. · We waited for a long time.</span></p>
+            <details class="conjugation"><summary>Konjugation</summary><table class="conjugation-table"><thead><tr><th>Person</th><th>Präsens</th><th>Präteritum</th><th>Konjunktiv II</th></tr></thead><tbody>
+              <tr><th>ich</th><td>habe</td><td>hatte</td><td>hätte</td></tr><tr><th>du</th><td>hast</td><td>hattest</td><td>hättest</td></tr><tr><th>er / sie / es</th><td>hat</td><td>hatte</td><td>hätte</td></tr><tr><th>wir</th><td>haben</td><td>hatten</td><td>hätten</td></tr><tr><th>ihr</th><td>habt</td><td>hattet</td><td>hättet</td></tr><tr><th>sie / Sie</th><td>haben</td><td>hatten</td><td>hätten</td></tr>
+            </tbody></table></details>
+          </section>
+
+          <section class="verb-card">
+            <span class="verb-number">03 · to become / will</span><h2>werden</h2>
+            <p><em>Werden</em> describes becoming or change. It also builds the future and, with a past participle, the passive voice—one reason it is particularly frequent in formal writing.</p>
+            <p class="construction">change · <strong>werden + adjective/noun</strong><br>future · <strong>werden + infinitive</strong><br>passive · <strong>werden + past participle</strong></p>
+            <p class="example"><strong>Es wird kalt. · Das Haus wird gebaut.</strong><span class="translation">It is getting cold. · The house is being built.</span></p>
+            <details class="conjugation"><summary>Konjugation</summary><table class="conjugation-table"><thead><tr><th>Person</th><th>Präsens</th><th>Präteritum</th><th>Konjunktiv II</th></tr></thead><tbody>
+              <tr><th>ich</th><td>werde</td><td>wurde</td><td>würde</td></tr><tr><th>du</th><td>wirst</td><td>wurdest</td><td>würdest</td></tr><tr><th>er / sie / es</th><td>wird</td><td>wurde</td><td>würde</td></tr><tr><th>wir</th><td>werden</td><td>wurden</td><td>würden</td></tr><tr><th>ihr</th><td>werdet</td><td>wurdet</td><td>würdet</td></tr><tr><th>sie / Sie</th><td>werden</td><td>wurden</td><td>würden</td></tr>
+            </tbody></table></details>
+          </section>
+
+          <section class="verb-card">
+            <span class="verb-number">04 · can / to be able to</span><h2>können</h2>
+            <p><em>Können</em> expresses ability, possibility, or permission. It often corresponds to English <em>can</em> or <em>could</em>.</p>
+            <p class="construction"><strong>können + infinitive</strong> at the end of the clause</p>
+            <p class="example"><strong>Ich kann morgen kommen.</strong><span class="translation">I can come tomorrow.</span></p>
+            <details class="conjugation"><summary>Konjugation</summary><table class="conjugation-table"><thead><tr><th>Person</th><th>Präsens</th><th>Präteritum</th><th>Konjunktiv II</th></tr></thead><tbody>
+              <tr><th>ich</th><td>kann</td><td>konnte</td><td>könnte</td></tr><tr><th>du</th><td>kannst</td><td>konntest</td><td>könntest</td></tr><tr><th>er / sie / es</th><td>kann</td><td>konnte</td><td>könnte</td></tr><tr><th>wir</th><td>können</td><td>konnten</td><td>könnten</td></tr><tr><th>ihr</th><td>könnt</td><td>konntet</td><td>könntet</td></tr><tr><th>sie / Sie</th><td>können</td><td>konnten</td><td>könnten</td></tr>
+            </tbody></table></details>
+          </section>
+
+          <section class="verb-card">
+            <span class="verb-number">05 · must / to have to</span><h2>müssen</h2>
+            <p><em>Müssen</em> marks necessity or strong obligation. Its negative deserves care: <em>nicht müssen</em> means “not have to,” rather than “must not.”</p>
+            <p class="construction"><strong>müssen + infinitive</strong> at the end of the clause</p>
+            <p class="example"><strong>Du musst gehen. · Du musst nicht gehen.</strong><span class="translation">You must leave. · You do not have to leave.</span></p>
+            <details class="conjugation"><summary>Konjugation</summary><table class="conjugation-table"><thead><tr><th>Person</th><th>Präsens</th><th>Präteritum</th><th>Konjunktiv II</th></tr></thead><tbody>
+              <tr><th>ich</th><td>muss</td><td>musste</td><td>müsste</td></tr><tr><th>du</th><td>musst</td><td>musstest</td><td>müsstest</td></tr><tr><th>er / sie / es</th><td>muss</td><td>musste</td><td>müsste</td></tr><tr><th>wir</th><td>müssen</td><td>mussten</td><td>müssten</td></tr><tr><th>ihr</th><td>müsst</td><td>musstet</td><td>müsstet</td></tr><tr><th>sie / Sie</th><td>müssen</td><td>mussten</td><td>müssten</td></tr>
+            </tbody></table></details>
+          </section>
+
+          <section class="verb-card">
+            <span class="verb-number">06 · to want to</span><h2>wollen</h2>
+            <p><em>Wollen</em> states an intention, desire, or plan. It is direct and can sound forceful; requests are often softened with <em>möchten</em>.</p>
+            <p class="construction"><strong>wollen + infinitive</strong> at the end of the clause</p>
+            <p class="example"><strong>Wir wollen Deutsch lernen.</strong><span class="translation">We want to learn German.</span></p>
+            <details class="conjugation"><summary>Konjugation</summary><table class="conjugation-table"><thead><tr><th>Person</th><th>Präsens</th><th>Präteritum</th><th>Konjunktiv II</th></tr></thead><tbody>
+              <tr><th>ich</th><td>will</td><td>wollte</td><td>wollte</td></tr><tr><th>du</th><td>willst</td><td>wolltest</td><td>wolltest</td></tr><tr><th>er / sie / es</th><td>will</td><td>wollte</td><td>wollte</td></tr><tr><th>wir</th><td>wollen</td><td>wollten</td><td>wollten</td></tr><tr><th>ihr</th><td>wollt</td><td>wolltet</td><td>wolltet</td></tr><tr><th>sie / Sie</th><td>wollen</td><td>wollten</td><td>wollten</td></tr>
+            </tbody></table></details>
+          </section>
+
+          <section class="verb-card">
+            <span class="verb-number">07 · should / to be supposed to</span><h2>sollen</h2>
+            <p><em>Sollen</em> conveys an instruction, expectation, recommendation, or claim originating with someone else. It often answers: “According to whom?”</p>
+            <p class="construction"><strong>sollen + infinitive</strong> at the end of the clause</p>
+            <p class="example"><strong>Ich soll den Arzt anrufen. · Er soll reich sein.</strong><span class="translation">I am supposed to call the doctor. · He is said to be rich.</span></p>
+            <details class="conjugation"><summary>Konjugation</summary><table class="conjugation-table"><thead><tr><th>Person</th><th>Präsens</th><th>Präteritum</th><th>Konjunktiv II</th></tr></thead><tbody>
+              <tr><th>ich</th><td>soll</td><td>sollte</td><td>sollte</td></tr><tr><th>du</th><td>sollst</td><td>solltest</td><td>solltest</td></tr><tr><th>er / sie / es</th><td>soll</td><td>sollte</td><td>sollte</td></tr><tr><th>wir</th><td>sollen</td><td>sollten</td><td>sollten</td></tr><tr><th>ihr</th><td>sollt</td><td>solltet</td><td>solltet</td></tr><tr><th>sie / Sie</th><td>sollen</td><td>sollten</td><td>sollten</td></tr>
+            </tbody></table></details>
+          </section>
+
+          <section class="verb-card">
+            <span class="verb-number">08 · may / to be allowed to</span><h2>dürfen</h2>
+            <p><em>Dürfen</em> concerns permission. Unlike <em>nicht müssen</em>, <em>nicht dürfen</em> is a prohibition: something is not allowed.</p>
+            <p class="construction"><strong>dürfen + infinitive</strong> at the end of the clause</p>
+            <p class="example"><strong>Darf ich hereinkommen? · Hier darf man nicht rauchen.</strong><span class="translation">May I come in? · Smoking is not allowed here.</span></p>
+            <details class="conjugation"><summary>Konjugation</summary><table class="conjugation-table"><thead><tr><th>Person</th><th>Präsens</th><th>Präteritum</th><th>Konjunktiv II</th></tr></thead><tbody>
+              <tr><th>ich</th><td>darf</td><td>durfte</td><td>dürfte</td></tr><tr><th>du</th><td>darfst</td><td>durftest</td><td>dürftest</td></tr><tr><th>er / sie / es</th><td>darf</td><td>durfte</td><td>dürfte</td></tr><tr><th>wir</th><td>dürfen</td><td>durften</td><td>dürften</td></tr><tr><th>ihr</th><td>dürft</td><td>durftet</td><td>dürftet</td></tr><tr><th>sie / Sie</th><td>dürfen</td><td>durften</td><td>dürften</td></tr>
+            </tbody></table></details>
+          </section>
+
+          <section class="verb-card">
+            <span class="verb-number">09 · to like / may</span><h2>mögen</h2>
+            <p><em>Mögen</em> usually expresses liking when followed by a noun. Its subjunctive form <em>möchten</em> makes a polite wish; in formal language, <em>mag</em> can also signal possibility.</p>
+            <p class="construction">liking · <strong>mögen + object</strong><br>polite wish · <strong>möchten + infinitive/object</strong></p>
+            <p class="example"><strong>Ich mag Kaffee. · Ich möchte bezahlen.</strong><span class="translation">I like coffee. · I would like to pay.</span></p>
+            <details class="conjugation"><summary>Konjugation</summary><table class="conjugation-table"><thead><tr><th>Person</th><th>Präsens</th><th>Präteritum</th><th>Konjunktiv II</th></tr></thead><tbody>
+              <tr><th>ich</th><td>mag</td><td>mochte</td><td>möchte</td></tr><tr><th>du</th><td>magst</td><td>mochtest</td><td>möchtest</td></tr><tr><th>er / sie / es</th><td>mag</td><td>mochte</td><td>möchte</td></tr><tr><th>wir</th><td>mögen</td><td>mochten</td><td>möchten</td></tr><tr><th>ihr</th><td>mögt</td><td>mochtet</td><td>möchtet</td></tr><tr><th>sie / Sie</th><td>mögen</td><td>mochten</td><td>möchten</td></tr>
+            </tbody></table></details>
+          </section>
+        </div>
+      </article>
+    </main>
+  </div>
 
   <script>
     const genders = {
@@ -308,6 +500,13 @@
     const limitInput = document.querySelector('#limit');
     const limitButtons = [...document.querySelectorAll('[data-limit]')];
     const heuristicButtons = [...document.querySelectorAll('[data-regex]')];
+    const views = {
+      nouns: document.querySelector('#nouns-view'),
+      aux: document.querySelector('#aux-view')
+    };
+    const viewButtons = [...document.querySelectorAll('[data-view]')];
+    const conjugationToggle = document.querySelector('#conjugation-toggle');
+    const conjugations = [...document.querySelectorAll('.conjugation')];
     let nouns = [];
     let limit = 10000;
 
@@ -315,6 +514,25 @@
     const escapeHtml = value => value.replace(/[&<>'"]/g, char => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
     })[char]);
+
+    function setView(view, updateUrl = true) {
+      const selected = view === 'aux' ? 'aux' : 'nouns';
+      for (const [name, panel] of Object.entries(views)) panel.hidden = name !== selected;
+      viewButtons.forEach(button => {
+        const active = button.dataset.view === selected;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-selected', active);
+      });
+      document.title = selected === 'aux'
+        ? 'Hilfsverben — German Auxiliary Verbs'
+        : 'Der · Die · Das — German Nouns';
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        if (selected === 'aux') url.searchParams.set('view', 'aux');
+        else url.searchParams.delete('view');
+        history.replaceState(null, '', url);
+      }
+    }
 
     function normalizeLimit(value) {
       const parsed = Number.parseInt(value, 10);
@@ -383,6 +601,7 @@
     const initialParams = new URLSearchParams(window.location.search);
     setLimit(initialParams.get('top') || 10000, false);
     search.value = initialParams.get('q') || '';
+    setView(initialParams.get('view'), false);
 
     fetch('./german-nouns-top-10000.json')
       .then(response => {
@@ -399,6 +618,15 @@
         status.innerHTML = `Could not load the noun data.<br><small>${escapeHtml(error.message)} — serve this directory through a local web server instead of opening the file directly.</small>`;
       });
 
+    viewButtons.forEach(button => {
+      button.addEventListener('click', () => setView(button.dataset.view));
+    });
+    conjugationToggle.addEventListener('click', () => {
+      const open = !conjugations.every(conjugation => conjugation.open);
+      conjugations.forEach(conjugation => { conjugation.open = open; });
+      conjugationToggle.textContent = open ? 'Hide conjugations' : 'Show conjugations';
+      conjugationToggle.setAttribute('aria-expanded', open);
+    });
     search.addEventListener('input', event => setSearch(event.target.value));
     heuristicButtons.forEach(button => {
       button.addEventListener('click', () => {
@@ -417,6 +645,7 @@
       const params = new URLSearchParams(window.location.search);
       search.value = params.get('q') || '';
       setLimit(params.get('top') || 10000, false);
+      setView(params.get('view'), false);
     });
   </script>
 </body>

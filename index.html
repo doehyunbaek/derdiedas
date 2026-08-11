@@ -85,7 +85,7 @@
     h1 span:nth-child(1) { color: var(--der); }
     h1 span:nth-child(2) { color: var(--die); }
     h1 span:nth-child(3) { color: var(--das); }
-    .aux-title { color: var(--der); }
+    .aux-title, .verbs-title { color: var(--der); }
 
     .intro {
       max-width: 440px;
@@ -180,7 +180,7 @@
       margin: 28px auto 60px;
     }
 
-    #status {
+    #status, #verb-status {
       padding: 60px 0;
       color: var(--muted);
       text-align: center;
@@ -280,6 +280,69 @@
 
     .noun-list { margin: 0; padding: 0; list-style: none; }
 
+    .verb-results {
+      width: min(760px, 100%);
+      margin: 0 auto;
+    }
+
+    .verb-class-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    .verb-class-controls button { padding: 7px 11px; font-size: .78rem; }
+    .verb-class {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 7px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      font-size: .62rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      vertical-align: .15em;
+    }
+
+    .verb-class.duden-core {
+      border-color: rgba(165, 65, 81, .28);
+      background: rgba(165, 65, 81, .08);
+      color: var(--die);
+    }
+
+    .verb-family { border-bottom: 1px solid var(--line); }
+    .verb-family:last-child { border-bottom: 0; }
+    .verb-family summary {
+      padding: 13px 22px;
+      background: rgba(49, 95, 154, .055);
+      color: var(--der);
+      cursor: pointer;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.08rem;
+      list-style: none;
+    }
+    .verb-family summary::-webkit-details-marker { display: none; }
+    .verb-family summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.4rem;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+    .verb-family[open] summary::before { content: "−"; }
+    .verb-family-total {
+      float: right;
+      color: var(--muted);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      font-size: .68rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .verb-family .noun-list { border-top: 1px solid var(--line); }
+    .verb-family .noun { padding-left: 42px; }
+
     .noun {
       display: grid;
       grid-template-columns: 3.2rem minmax(0, 1fr) auto;
@@ -322,6 +385,7 @@
 <body>
   <nav class="category-tabs" role="tablist" aria-label="Wortart">
     <button class="active" id="nouns-tab" type="button" role="tab" aria-selected="true" aria-controls="nouns-view" data-view="nouns">Nomen <span class="tab-total">10,000</span></button>
+    <button id="verbs-tab" type="button" role="tab" aria-selected="false" aria-controls="verbs-view" data-view="verbs">Verben <span class="tab-total">10,000</span></button>
     <button id="aux-tab" type="button" role="tab" aria-selected="false" aria-controls="aux-view" data-view="aux">Hilfsverben <span class="tab-total">9</span></button>
   </nav>
 
@@ -381,6 +445,40 @@
       </section>
     </div>
   </main>
+  </div>
+
+  <div id="verbs-view" role="tabpanel" aria-labelledby="verbs-tab" hidden>
+    <header>
+      <div>
+        <h1 class="verbs-title">Verben</h1>
+        <p class="intro">Frequently used German verb lemmas, ranked by frequency in the Leipzig corpus.</p>
+      </div>
+      <div class="controls">
+        <label>Number of top-ranked verbs</label>
+        <div class="limit-controls">
+          <button type="button" data-verb-limit="100">100</button>
+          <button type="button" data-verb-limit="1000">1,000</button>
+          <button type="button" data-verb-limit="10000">10,000</button>
+          <input id="verb-limit" type="number" min="1" max="10000" step="1" value="10000" aria-label="Custom number of verbs">
+        </div>
+        <label>Conjugation class</label>
+        <div class="verb-class-controls">
+          <button class="active" type="button" data-verb-class="all">All</button>
+          <button type="button" data-verb-class="weak">Weak</button>
+          <button type="button" data-verb-class="strong">Strong</button>
+        </div>
+        <label for="verb-search">Find a verb · regular expression</label>
+        <input id="verb-search" type="search" placeholder="Try ^gehen$ or ieren$" autocomplete="off" spellcheck="false">
+      </div>
+    </header>
+
+    <main>
+      <div id="verb-status">Loading verbs…</div>
+      <section class="column verb-results" id="verb-results" style="--accent: var(--der)" hidden>
+        <div class="column-head"><div><h2>Verben</h2><p>Infinitive lemmas</p></div><span class="count" id="verb-count"></span></div>
+        <ol class="noun-list" id="verb-list"></ol>
+      </section>
+    </main>
   </div>
 
   <div id="aux-view" role="tabpanel" aria-labelledby="aux-tab" hidden>
@@ -498,17 +596,29 @@
     const columns = document.querySelector('#columns');
     const search = document.querySelector('#search');
     const limitInput = document.querySelector('#limit');
-    const limitButtons = [...document.querySelectorAll('[data-limit]')];
-    const heuristicButtons = [...document.querySelectorAll('[data-regex]')];
+    const limitButtons = [...document.querySelectorAll('#nouns-view [data-limit]')];
+    const heuristicButtons = [...document.querySelectorAll('#nouns-view [data-regex]')];
+    const verbStatus = document.querySelector('#verb-status');
+    const verbResults = document.querySelector('#verb-results');
+    const verbList = document.querySelector('#verb-list');
+    const verbCount = document.querySelector('#verb-count');
+    const verbSearch = document.querySelector('#verb-search');
+    const verbLimitInput = document.querySelector('#verb-limit');
+    const verbLimitButtons = [...document.querySelectorAll('[data-verb-limit]')];
+    const verbClassButtons = [...document.querySelectorAll('[data-verb-class]')];
     const views = {
       nouns: document.querySelector('#nouns-view'),
+      verbs: document.querySelector('#verbs-view'),
       aux: document.querySelector('#aux-view')
     };
     const viewButtons = [...document.querySelectorAll('[data-view]')];
     const conjugationToggle = document.querySelector('#conjugation-toggle');
     const conjugations = [...document.querySelectorAll('.conjugation')];
     let nouns = [];
+    let verbs = [];
     let limit = 10000;
+    let verbLimit = 10000;
+    let verbClass = 'all';
 
     const number = new Intl.NumberFormat('en');
     const escapeHtml = value => value.replace(/[&<>'"]/g, char => ({
@@ -516,7 +626,7 @@
     })[char]);
 
     function setView(view, updateUrl = true) {
-      const selected = view === 'aux' ? 'aux' : 'nouns';
+      const selected = ['verbs', 'aux'].includes(view) ? view : 'nouns';
       for (const [name, panel] of Object.entries(views)) panel.hidden = name !== selected;
       viewButtons.forEach(button => {
         const active = button.dataset.view === selected;
@@ -525,11 +635,13 @@
       });
       document.title = selected === 'aux'
         ? 'Hilfsverben — German Auxiliary Verbs'
-        : 'Der · Die · Das — German Nouns';
+        : selected === 'verbs'
+          ? 'Verben — German Verbs'
+          : 'Der · Die · Das — German Nouns';
       if (updateUrl) {
         const url = new URL(window.location.href);
-        if (selected === 'aux') url.searchParams.set('view', 'aux');
-        else url.searchParams.delete('view');
+        if (selected === 'nouns') url.searchParams.delete('view');
+        else url.searchParams.set('view', selected);
         history.replaceState(null, '', url);
       }
     }
@@ -553,6 +665,20 @@
       if (nouns.length) render(search.value);
     }
 
+    function setVerbLimit(value, updateUrl = true) {
+      verbLimit = normalizeLimit(value);
+      verbLimitInput.value = verbLimit;
+      verbLimitButtons.forEach(button => {
+        button.classList.toggle('active', Number(button.dataset.verbLimit) === verbLimit);
+      });
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('verb-top', verbLimit);
+        history.replaceState(null, '', url);
+      }
+      if (verbs.length) renderVerbs(verbSearch.value);
+    }
+
     function setSearch(value, updateUrl = true) {
       search.value = value;
       if (updateUrl) {
@@ -562,6 +688,85 @@
         history.replaceState(null, '', url);
       }
       render(value);
+    }
+
+    function setVerbClass(value, updateUrl = true) {
+      verbClass = ['weak', 'strong'].includes(value) ? value : 'all';
+      verbClassButtons.forEach(button => {
+        button.classList.toggle('active', button.dataset.verbClass === verbClass);
+      });
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        if (verbClass === 'all') url.searchParams.delete('verb-class');
+        else url.searchParams.set('verb-class', verbClass);
+        history.replaceState(null, '', url);
+      }
+      if (verbs.length) renderVerbs(verbSearch.value);
+    }
+
+    function setVerbSearch(value, updateUrl = true) {
+      verbSearch.value = value;
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        if (value.trim()) url.searchParams.set('verb-q', value);
+        else url.searchParams.delete('verb-q');
+        history.replaceState(null, '', url);
+      }
+      renderVerbs(value);
+    }
+
+    function verbRow(verb) {
+      return `
+        <li class="noun">
+          <span class="rank">#${number.format(verb.rank)}</span>
+          <span class="word">${escapeHtml(verb.lemma)}<span class="verb-class">${escapeHtml(verb.class)}</span>${verb.dudenCore ? '<span class="verb-class duden-core" title="Duden core strong-verb inventory">Duden</span>' : ''}</span>
+          <span class="frequency" title="Corpus frequency">${number.format(verb.frequency)}</span>
+        </li>`;
+    }
+
+    function renderStrongFamilies(items, expandAll = false) {
+      const families = new Map();
+      items.forEach(verb => {
+        const stem = verb.stem || verb.lemma;
+        if (!families.has(stem)) families.set(stem, []);
+        families.get(stem).push(verb);
+      });
+      return [...families.entries()]
+        .sort((a, b) => a[1][0].rank - b[1][0].rank)
+        .map(([stem, family]) => `
+          <li class="verb-family">
+            <details ${expandAll ? 'open' : ''}>
+              <summary>-${escapeHtml(stem)}<span class="verb-family-total">${number.format(family.length)} ${family.length === 1 ? 'verb' : 'verbs'}</span></summary>
+              <ol class="noun-list">${family.map(verbRow).join('')}</ol>
+            </details>
+          </li>`).join('');
+    }
+
+    function renderVerbs(query = '') {
+      const pattern = query.trim();
+      let matcher = null;
+      try {
+        matcher = pattern ? new RegExp(pattern, 'iu') : null;
+        verbSearch.setAttribute('aria-invalid', 'false');
+        verbSearch.title = '';
+      } catch (error) {
+        verbSearch.setAttribute('aria-invalid', 'true');
+        verbSearch.title = error.message;
+        return;
+      }
+      const selected = verbs.slice(0, verbLimit);
+      const byClass = verbClass === 'all'
+        ? selected
+        : selected.filter(verb => verb.class === verbClass);
+      const matches = matcher
+        ? byClass.filter(verb => matcher.test(verb.lemma))
+        : byClass;
+      verbCount.textContent = `${number.format(matches.length)} verbs`;
+      verbList.innerHTML = matches.length
+        ? verbClass === 'strong'
+          ? renderStrongFamilies(matches, Boolean(pattern))
+          : matches.map(verbRow).join('')
+        : '<li class="empty">No matching verbs</li>';
     }
 
     function render(query = '') {
@@ -600,7 +805,10 @@
 
     const initialParams = new URLSearchParams(window.location.search);
     setLimit(initialParams.get('top') || 10000, false);
+    setVerbLimit(initialParams.get('verb-top') || 10000, false);
+    setVerbClass(initialParams.get('verb-class'), false);
     search.value = initialParams.get('q') || '';
+    verbSearch.value = initialParams.get('verb-q') || '';
     setView(initialParams.get('view'), false);
 
     fetch('./german-nouns-top-10000.json')
@@ -618,6 +826,21 @@
         status.innerHTML = `Could not load the noun data.<br><small>${escapeHtml(error.message)} — serve this directory through a local web server instead of opening the file directly.</small>`;
       });
 
+    fetch('./german-verbs-top-10000.json')
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        verbs = data;
+        verbStatus.hidden = true;
+        verbResults.hidden = false;
+        renderVerbs(verbSearch.value);
+      })
+      .catch(error => {
+        verbStatus.innerHTML = `Could not load the verb data.<br><small>${escapeHtml(error.message)} — serve this directory through a local web server instead of opening the file directly.</small>`;
+      });
+
     viewButtons.forEach(button => {
       button.addEventListener('click', () => setView(button.dataset.view));
     });
@@ -628,6 +851,10 @@
       conjugationToggle.setAttribute('aria-expanded', open);
     });
     search.addEventListener('input', event => setSearch(event.target.value));
+    verbSearch.addEventListener('input', event => setVerbSearch(event.target.value));
+    verbClassButtons.forEach(button => {
+      button.addEventListener('click', () => setVerbClass(button.dataset.verbClass));
+    });
     heuristicButtons.forEach(button => {
       button.addEventListener('click', () => {
         setSearch(search.value.trim() === button.dataset.regex ? '' : button.dataset.regex);
@@ -641,10 +868,21 @@
     limitInput.addEventListener('keydown', event => {
       if (event.key === 'Enter') setLimit(event.currentTarget.value);
     });
+    verbLimitButtons.forEach(button => {
+      button.addEventListener('click', () => setVerbLimit(button.dataset.verbLimit));
+    });
+    verbLimitInput.addEventListener('change', event => setVerbLimit(event.target.value));
+    verbLimitInput.addEventListener('keydown', event => {
+      if (event.key === 'Enter') setVerbLimit(event.currentTarget.value);
+    });
     window.addEventListener('popstate', () => {
       const params = new URLSearchParams(window.location.search);
       search.value = params.get('q') || '';
+      verbSearch.value = params.get('verb-q') || '';
       setLimit(params.get('top') || 10000, false);
+      setVerbLimit(params.get('verb-top') || 10000, false);
+      setVerbClass(params.get('verb-class'), false);
+      if (verbs.length) renderVerbs(verbSearch.value);
       setView(params.get('view'), false);
     });
   </script>

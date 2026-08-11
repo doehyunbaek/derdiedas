@@ -5,15 +5,13 @@ from collections import Counter, defaultdict
 from pathlib import Path
 import gzip
 import json
-
-import spacy
+import re
 
 ROOT = Path(__file__).resolve().parent
 CORPUS = ROOT / "deu_mixed-typical_2011_1M" / "deu_mixed-typical_2011_1M-sentences.txt"
-COUNTS = ROOT / "german-verb-lemma-counts.json"
-NORMALIZED_COUNTS = ROOT / "german-verb-normalized-counts.json"
-CLASSES = ROOT / "german-verb-classes.json"
+UNIFIED = ROOT / "german-verbs.json"
 KAIKKI = ROOT / "kaikki.org-dictionary-German.jsonl"
+KAIKKI_VERBS = ROOT / ".cache" / "kaikki-german-verbs.jsonl.gz"
 
 # These verbs have their own curated Hilfsverben tab.
 EXCLUDED_LEMMAS = {
@@ -70,6 +68,15 @@ CLASS_OVERRIDES = {
     # paradigm schrak/geschrocken is dated and should not define this binary UI.
     "schrecken": "weak",
 }
+# Duden's "unregelmäßiges Verb" category: the stem changes beyond the vowel
+# alternation that defines a strong verb. Transparent derivatives inherit it.
+# Wenden remains weak in its usual modern transitive/reflexive senses.
+IRREGULAR_BASES = {
+    "bringen", "denken", "kennen", "nennen", "rennen", "brennen", "senden",
+    "wissen", "gehen", "stehen",
+}
+INSEPARABLE_PREFIXES = ("be", "emp", "ent", "er", "ge", "miss", "ver", "zer")
+
 STRONG_STEM_OVERRIDES = {
     # Relics/compounds whose shared base is not a literal suffix in the modern
     # spelling, or whose base has its own Hilfsverben tab.
@@ -96,11 +103,22 @@ def sentence_texts():
                 yield text
 
 
-def build_counts():
-    if COUNTS.exists():
-        print(f"Using existing {COUNTS.name}", flush=True)
-        return Counter(json.loads(COUNTS.read_text(encoding="utf-8")))
+def unified_records():
+    if not UNIFIED.exists():
+        return []
+    return json.loads(UNIFIED.read_text(encoding="utf-8"))["verbs"]
 
+
+def build_counts():
+    records = unified_records()
+    if records:
+        print(f"Using raw counts from {UNIFIED.name}", flush=True)
+        return Counter({
+            record["lemma"]: record["rawFrequency"]
+            for record in records if record.get("rawFrequency") is not None
+        })
+
+    import spacy
     nlp = spacy.load("de_core_news_sm", disable=["parser", "ner"])
     counts = Counter()
     documents = 0
@@ -114,11 +132,6 @@ def build_counts():
         if documents % 100_000 == 0:
             print(f"Tagged {documents:,} sentences", flush=True)
 
-    COUNTS.write_text(
-        json.dumps(dict(counts), ensure_ascii=False, sort_keys=True),
-        encoding="utf-8",
-    )
-    print(f"Saved {len(counts):,} lemma counts to {COUNTS.name}", flush=True)
     return counts
 
 
@@ -132,6 +145,75 @@ def kaikki_lines():
     raise FileNotFoundError(
         f"Expected {KAIKKI.name} or {compressed.name} to build verb metadata"
     )
+
+
+def build_principal_parts():
+    """Extract independent local principal parts from the Kaikki verb export."""
+    if not KAIKKI_VERBS.exists():
+        print(f"No {KAIKKI_VERBS}; preserving existing principal parts", flush=True)
+        return {
+            record["lemma"]: record["principalParts"]
+            for record in unified_records() if record.get("principalParts")
+        }
+
+    candidates = defaultdict(lambda: {
+        "present3": Counter(),
+        "preterite": Counter(),
+        "participle2": Counter(),
+        "subjunctive2": Counter(),
+        "imperativeSingular": Counter(),
+        "imperativePlural": Counter(),
+        "auxiliaries": Counter(),
+    })
+    with gzip.open(KAIKKI_VERBS, "rt", encoding="utf-8") as source:
+        for line in source:
+            entry = json.loads(line)
+            lemma = (entry.get("word") or "").lower()
+            if entry.get("pos") != "verb" or not lexical_entry(entry, lemma):
+                continue
+            for form in entry.get("forms") or ():
+                spelling = (form.get("form") or "").lower()
+                tags = set(form.get("tags") or ())
+                if not spelling:
+                    continue
+                weight = 3 if form.get("source") == "conjugation" else 1
+                if {"indicative", "present", "singular", "third-person"} <= tags:
+                    candidates[lemma]["present3"][spelling] += weight
+                if {
+                    "first-person", "indicative", "preterite", "singular"
+                } <= tags:
+                    candidates[lemma]["preterite"][spelling] += weight
+                if {"participle", "past"} <= tags:
+                    candidates[lemma]["participle2"][spelling] += weight
+                if {
+                    "first-person", "singular", "subjunctive-ii"
+                } <= tags and "future" not in tags:
+                    candidates[lemma]["subjunctive2"][spelling] += weight
+                if {"imperative", "second-person", "singular"} <= tags:
+                    candidates[lemma]["imperativeSingular"][spelling] += weight
+                if {"imperative", "second-person", "plural"} <= tags:
+                    candidates[lemma]["imperativePlural"][spelling] += weight
+
+            for template in entry.get("head_templates") or ():
+                if template.get("name") != "de-verb":
+                    continue
+                expansion = template.get("expansion") or ""
+                match = re.search(r"auxiliary (haben|sein)(?: or (haben|sein))?", expansion)
+                if match:
+                    for auxiliary in match.groups():
+                        if auxiliary:
+                            candidates[lemma]["auxiliaries"][auxiliary] += 1
+
+    result = {}
+    for lemma, forms in candidates.items():
+        if forms["preterite"] and forms["participle2"]:
+            result[lemma] = {
+                key: [form for form, _ in values.most_common()]
+                for key, values in forms.items()
+                if values
+            }
+    print(f"Extracted principal parts for {len(result):,} verbs", flush=True)
+    return result
 
 
 def lexical_entry(entry, lemma):
@@ -218,13 +300,17 @@ def unify_spelling_variants(counts):
 
 
 def build_metadata(raw_counts):
-    if NORMALIZED_COUNTS.exists() and CLASSES.exists():
-        print(f"Using existing {NORMALIZED_COUNTS.name} and {CLASSES.name}", flush=True)
-        normalized = Counter(json.loads(NORMALIZED_COUNTS.read_text(encoding="utf-8")))
-        normalized, merged = unify_spelling_variants(normalized)
-        if merged:
-            print(f"Unified {merged:,} ss/ß spelling variants", flush=True)
-        classes = json.loads(CLASSES.read_text(encoding="utf-8"))
+    records = unified_records()
+    if records:
+        print(f"Using normalized counts and classes from {UNIFIED.name}", flush=True)
+        normalized = Counter({
+            record["lemma"]: record["frequency"]
+            for record in records if record.get("frequency")
+        })
+        classes = {
+            record["lemma"]: record["kaikkiClass"]
+            for record in records if record.get("kaikkiClass")
+        }
         return normalized, classes
 
     wanted = set(raw_counts)
@@ -300,17 +386,9 @@ def build_metadata(raw_counts):
                 classes[lemma] = candidates[0]
                 changed = True
 
-    NORMALIZED_COUNTS.write_text(
-        json.dumps(dict(normalized), ensure_ascii=False, sort_keys=True),
-        encoding="utf-8",
-    )
-    CLASSES.write_text(
-        json.dumps(classes, ensure_ascii=False, sort_keys=True),
-        encoding="utf-8",
-    )
     print(f"Mapped {mapped:,} corpus forms to dictionary lemmas", flush=True)
     print(f"Unified {spelling_merges:,} ss/ß spelling variants", flush=True)
-    print(f"Saved classes for {len(classes):,} lemmas", flush=True)
+    print(f"Resolved classes for {len(classes):,} lemmas", flush=True)
     return normalized, classes
 
 
@@ -334,7 +412,39 @@ def strong_stem(lemma):
     return max(matches, key=len) if matches else None
 
 
+def weak_stem(lemma, classes):
+    """Return the simplest same-class verb underlying a weak derivative."""
+    candidates = [
+        lemma[len(prefix):]
+        for prefix in PREFIXES
+        if lemma.startswith(prefix)
+        and len(lemma) > len(prefix)
+        and classes.get(lemma[len(prefix):]) in {"weak", "mixed"}
+    ]
+    if not candidates:
+        return lemma
+    # Continue through stacked prefixes, e.g. wieder+be+leben -> leben.
+    stems = [weak_stem(candidate, classes) for candidate in candidates]
+    return min(stems, key=lambda stem: (len(stem), stem))
+
+
+def weak_paradigm(lemma, stem):
+    """Assign a weak verb to its visible conjugation/participle paradigm."""
+    if lemma.endswith("ieren"):
+        return "ieren"
+    if any(lemma.startswith(prefix) for prefix in INSEPARABLE_PREFIXES):
+        return "inseparable"
+    if lemma != stem:
+        return "separable"
+    root = lemma[:-2] if lemma.endswith("en") else lemma
+    if root.endswith(("d", "t")):
+        return "inserted-e"
+    return "regular"
+
+
 def conjugation_class(lemma, classes):
+    if any(lemma == base or lemma.endswith(base) for base in IRREGULAR_BASES):
+        return "irregular"
     if lemma in CLASS_OVERRIDES:
         return CLASS_OVERRIDES[lemma]
     # Duden treats mixed verbs separately. In this binary UI they remain weak
@@ -351,7 +461,46 @@ def conjugation_class(lemma, classes):
     return "unknown"
 
 
-def export(counts, classes):
+def verb_record(
+    lemma, frequency, verb_class, classes, principal_parts,
+    rank=None, raw_frequency=None
+):
+    """Build one canonical verb record shared by the UI and validators."""
+    if verb_class == "strong":
+        stem = strong_stem(lemma)
+    elif verb_class == "irregular":
+        matches = [base for base in IRREGULAR_BASES if lemma == base or lemma.endswith(base)]
+        stem = max(matches, key=len)
+    elif verb_class == "weak":
+        stem = weak_stem(lemma, classes)
+    else:
+        stem = None
+    record = {
+        "lemma": lemma,
+        "class": verb_class,
+        "kaikkiClass": classes.get(lemma),
+        "paradigm": (
+            verb_class if verb_class in {"strong", "irregular", "unknown"}
+            else weak_paradigm(lemma, stem)
+        ),
+        "stem": stem,
+        "principalParts": (
+            principal_parts.get(lemma)
+            if verb_class in {"strong", "irregular"} or classes.get(lemma) == "mixed"
+            else None
+        ),
+        "dudenCore": lemma in STRONG_BASES,
+        "frequency": frequency,
+    }
+    if rank is not None:
+        record["rank"] = rank
+    if raw_frequency is not None:
+        record["rawFrequency"] = raw_frequency
+    return record
+
+
+def export(raw_counts, counts, classes):
+    principal_parts = build_principal_parts()
     candidates = (
         (lemma, frequency, conjugation_class(lemma, classes))
         for lemma, frequency in counts.items()
@@ -364,25 +513,37 @@ def export(counts, classes):
         (item for item in candidates if item[2] != "unknown"),
         key=lambda item: (-item[1], item[0].casefold(), item[0]),
     )
-
-    for size in (100, 1000, 10000):
-        data = [
-            {
-                "rank": rank,
-                "lemma": lemma,
-                "class": verb_class,
-                "stem": strong_stem(lemma) if verb_class == "strong" else None,
-                "dudenCore": lemma in STRONG_BASES,
-                "frequency": frequency,
-            }
-            for rank, (lemma, frequency, verb_class) in enumerate(ranked[:size], 1)
-        ]
-        output = ROOT / f"german-verbs-top-{size}.json"
-        output.write_text(
-            json.dumps(data, ensure_ascii=False, indent=2) + "\n",
-            encoding="utf-8",
+    ranks = {lemma: rank for rank, (lemma, _, _) in enumerate(ranked, 1)}
+    unified = [
+        verb_record(
+            lemma,
+            counts.get(lemma, 0),
+            conjugation_class(lemma, classes),
+            classes,
+            principal_parts,
+            ranks.get(lemma),
+            raw_counts.get(lemma),
         )
-        print(f"Wrote {len(data):,} entries to {output.name}", flush=True)
+        for lemma in sorted(
+            set(raw_counts) | set(counts) | set(classes),
+            key=lambda value: (
+                ranks.get(value) is None,
+                ranks.get(value, 0),
+                value.casefold(),
+                value,
+            ),
+        )
+    ]
+    UNIFIED.write_text(
+        json.dumps({
+            "schemaVersion": 1,
+            "description": "Unified German verb inventory, corpus metadata, and principal parts",
+            "principalPartsSource": "Kaikki German verb export (Wiktextract)",
+            "verbs": unified,
+        }, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    print(f"Wrote {len(unified):,} entries to {UNIFIED.name}", flush=True)
 
     print(f"Ranked normalized verb lemmas available: {len(ranked):,}", flush=True)
 
@@ -390,7 +551,7 @@ def export(counts, classes):
 def main():
     raw_counts = build_counts()
     counts, classes = build_metadata(raw_counts)
-    export(counts, classes)
+    export(raw_counts, counts, classes)
 
 
 if __name__ == "__main__":

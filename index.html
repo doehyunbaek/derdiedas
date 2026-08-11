@@ -280,19 +280,32 @@
 
     .noun-list { margin: 0; padding: 0; list-style: none; }
 
-    .verb-results {
-      width: min(760px, 100%);
-      margin: 0 auto;
+    .verb-paradigms {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
     }
+    .weak-paradigms { display: grid; gap: 18px; }
+    .paradigm-guide { padding: 16px 22px; border-bottom: 1px solid var(--line); }
+    .paradigm-guide h3 {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    .paradigm-guide p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.55; }
 
-    .verb-class-controls {
+    .cefr-controls {
       display: flex;
       flex-wrap: wrap;
       gap: 7px;
       margin-bottom: 14px;
     }
 
-    .verb-class-controls button { padding: 7px 11px; font-size: .78rem; }
+    .cefr-controls button { padding: 7px 11px; font-size: .78rem; }
+    .cefr-controls button.active { border-color: var(--der); background: var(--der); color: white; }
     .verb-class {
       display: inline-block;
       margin-left: 8px;
@@ -317,7 +330,7 @@
     .verb-family:last-child { border-bottom: 0; }
     .verb-family summary {
       padding: 13px 22px;
-      background: rgba(49, 95, 154, .055);
+      background: transparent;
       color: var(--der);
       cursor: pointer;
       font-family: Georgia, "Times New Roman", serif;
@@ -332,6 +345,10 @@
       font-family: Inter, ui-sans-serif, system-ui, sans-serif;
     }
     .verb-family[open] summary::before { content: "−"; }
+    .verb-family summary .principal-parts {
+      display: inline;
+      margin: 0 0 0 10px;
+    }
     .verb-family-total {
       float: right;
       color: var(--muted);
@@ -342,6 +359,41 @@
     }
     .verb-family .noun-list { border-top: 1px solid var(--line); }
     .verb-family .noun { padding-left: 42px; }
+    .pattern-cases { display: grid; gap: 14px; margin-top: 16px; }
+    .pattern-case { padding-top: 14px; border-top: 1px solid var(--line); }
+    .weak-paradigms .pattern-case { padding-top: 0; border-top: 0; }
+    .pattern-case h4 {
+      margin: 0 0 5px;
+      color: var(--ink);
+      font-size: .78rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .pattern-case p { margin-bottom: 8px; }
+    .grammar-forms { margin: 12px 0 0; }
+    .pattern-case .grammar-forms { margin-top: 0; }
+    .grammar-forms dt {
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .grammar-forms dd {
+      margin: 0 0 9px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1rem;
+    }
+    .grammar-forms dd:last-child { margin-bottom: 0; }
+    .paradigm-guide .family-conjugation { overflow-x: auto; }
+    .paradigm-guide .conjugation-table { margin-top: 16px; }
+    .verb-scroll {
+      max-height: min(46vh, 480px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
 
     .noun {
       display: grid;
@@ -367,6 +419,14 @@
       font-size: 1.05rem;
     }
 
+    .principal-parts {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.35;
+    }
+
     .frequency { text-align: right; }
 
     .empty {
@@ -378,7 +438,7 @@
     @media (max-width: 780px) {
       header { align-items: stretch; flex-direction: column; padding-top: 34px; }
       .controls { width: 100%; }
-      .columns, .verb-guide { grid-template-columns: 1fr; }
+      .columns, .verb-guide, .verb-paradigms { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -402,6 +462,12 @@
         <button type="button" data-limit="1000">1,000</button>
         <button type="button" data-limit="10000">10,000</button>
         <input id="limit" type="number" min="1" max="10000" step="1" value="10000" aria-label="Custom number of nouns">
+      </div>
+      <label>Goethe CEFR vocabulary · cumulative</label>
+      <div class="cefr-controls" id="noun-cefr-controls">
+        <button type="button" data-cefr="A1">A1</button>
+        <button type="button" data-cefr="A2">A2</button>
+        <button type="button" data-cefr="B1">B1</button>
       </div>
       <label>Ending heuristics</label>
       <div class="heuristic-controls">
@@ -461,11 +527,11 @@
           <button type="button" data-verb-limit="10000">10,000</button>
           <input id="verb-limit" type="number" min="1" max="10000" step="1" value="10000" aria-label="Custom number of verbs">
         </div>
-        <label>Conjugation class</label>
-        <div class="verb-class-controls">
-          <button class="active" type="button" data-verb-class="all">All</button>
-          <button type="button" data-verb-class="weak">Weak</button>
-          <button type="button" data-verb-class="strong">Strong</button>
+        <label>Goethe CEFR vocabulary · cumulative</label>
+        <div class="cefr-controls" id="verb-cefr-controls">
+          <button type="button" data-cefr="A1">A1</button>
+          <button type="button" data-cefr="A2">A2</button>
+          <button type="button" data-cefr="B1">B1</button>
         </div>
         <label for="verb-search">Find a verb · regular expression</label>
         <input id="verb-search" type="search" placeholder="Try ^gehen$ or ieren$" autocomplete="off" spellcheck="false">
@@ -474,10 +540,61 @@
 
     <main>
       <div id="verb-status">Loading verbs…</div>
-      <section class="column verb-results" id="verb-results" style="--accent: var(--der)" hidden>
-        <div class="column-head"><div><h2>Verben</h2><p>Infinitive lemmas</p></div><span class="count" id="verb-count"></span></div>
-        <ol class="noun-list" id="verb-list"></ol>
-      </section>
+      <div class="verb-paradigms" id="verb-columns" hidden>
+        <div class="weak-paradigms" id="weak-paradigms">
+        <section class="column" data-paradigm="regular" style="--accent: var(--das)">
+          <div class="column-head"><div><h2>Schwaches Verb</h2></div><span class="count" id="regular-verb-count"></span></div>
+          <article class="paradigm-guide">
+            <p>A verb whose stem vowel remains the same in all conjugated forms.</p>
+            <div class="pattern-cases">
+              <section class="pattern-case">
+                <p>The stem takes the standard weak endings. Without a prefix, the past participle normally consists of <em>ge-</em> + stem + <em>-t</em>.</p>
+                <dl class="grammar-forms"><dd><strong>machen:</strong> macht, machte, hat gemacht</dd></dl>
+              </section>
+              <section class="pattern-case">
+                <p>A separable prefix appears at the end of a main clause. In the past participle, <em>ge-</em> is placed between the prefix and the verb stem.</p>
+                <dl class="grammar-forms"><dd><strong>mitmachen:</strong> macht mit, machte mit, hat mitgemacht</dd></dl>
+              </section>
+              <section class="pattern-case">
+                <p>An inseparable prefix remains attached to the verb stem; the past participle is formed without <em>ge-</em>.</p>
+                <dl class="grammar-forms"><dd><strong>vermachen:</strong> vermacht, vermachte, hat vermacht</dd></dl>
+              </section>
+              <section class="pattern-case">
+                <p>Verbs ending in <strong>-ieren</strong> take regular weak endings; their past participle is always formed without <em>ge-</em>.</p>
+                <dl class="grammar-forms"><dd><strong>reagieren:</strong> reagiert, reagierte, hat reagiert</dd></dl>
+              </section>
+              <section class="pattern-case">
+                <p>When the verb stem ends in <strong>-s, -ß, -x</strong>, or <strong>-z</strong>, the <em>du</em> form takes <strong>-t</strong> instead of <strong>-st</strong>.</p>
+                <dl class="grammar-forms"><dd><strong>setzen:</strong> setzt, setzte, hat gesetzt</dd></dl>
+              </section>
+              <section class="pattern-case">
+                <p>When the verb stem ends in <strong>-d</strong>, <strong>-t</strong>, or a consonant followed by <strong>-m</strong> or <strong>-n</strong> (except <strong>-l</strong> or <strong>-r</strong>), an <em>e</em> is inserted before consonant-initial endings.</p>
+                <dl class="grammar-forms"><dd><strong>arbeiten:</strong> arbeitet, arbeitete, hat gearbeitet</dd></dl>
+              </section>
+              <section class="pattern-case">
+                <p>Denglisch verbs adapted from English also take weak endings.</p>
+                <dl class="grammar-forms"><dd><strong>prompten:</strong> promptet, promptete, hat gepromptet</dd></dl>
+              </section>
+            </div>
+          </article>
+          <div class="verb-scroll"><ol class="noun-list" id="regular-verb-list"></ol></div>
+        </section>
+        </div>
+        <section class="column" style="--accent: var(--der)">
+          <div class="column-head"><div><h2>Starkes Verb</h2></div><span class="count" id="strong-verb-count"></span></div>
+          <article class="paradigm-guide">
+            <p>A verb whose stem vowel changes in the past-tense forms.</p>
+          </article>
+          <div class="verb-scroll"><ol class="noun-list" id="strong-verb-list"></ol></div>
+        </section>
+        <section class="column" style="--accent: var(--die)">
+          <div class="column-head"><div><h2>Unregelmäßiges Verb</h2></div><span class="count" id="irregular-verb-count"></span></div>
+          <article class="paradigm-guide">
+            <p>A verb whose entire word stem changes in the past-tense forms.</p>
+          </article>
+          <div class="verb-scroll"><ol class="noun-list" id="irregular-verb-list"></ol></div>
+        </section>
+      </div>
     </main>
   </div>
 
@@ -598,14 +715,19 @@
     const limitInput = document.querySelector('#limit');
     const limitButtons = [...document.querySelectorAll('#nouns-view [data-limit]')];
     const heuristicButtons = [...document.querySelectorAll('#nouns-view [data-regex]')];
+    const cefrButtons = [...document.querySelectorAll('[data-cefr]')];
     const verbStatus = document.querySelector('#verb-status');
-    const verbResults = document.querySelector('#verb-results');
-    const verbList = document.querySelector('#verb-list');
-    const verbCount = document.querySelector('#verb-count');
+    const verbColumns = document.querySelector('#verb-columns');
+    const weakParadigms = document.querySelector('#weak-paradigms');
+    const paradigmTargets = Object.fromEntries(
+      ['regular', 'strong', 'irregular'].map(paradigm => [paradigm, {
+        list: document.getElementById(`${paradigm}-verb-list`),
+        count: document.getElementById(`${paradigm}-verb-count`)
+      }])
+    );
     const verbSearch = document.querySelector('#verb-search');
     const verbLimitInput = document.querySelector('#verb-limit');
     const verbLimitButtons = [...document.querySelectorAll('[data-verb-limit]')];
-    const verbClassButtons = [...document.querySelectorAll('[data-verb-class]')];
     const views = {
       nouns: document.querySelector('#nouns-view'),
       verbs: document.querySelector('#verbs-view'),
@@ -616,9 +738,11 @@
     const conjugations = [...document.querySelectorAll('.conjugation')];
     let nouns = [];
     let verbs = [];
+    let cefrLevels = { nouns: {}, verbs: {} };
     let limit = 10000;
     let verbLimit = 10000;
-    let verbClass = 'all';
+    let cefr = 'all';
+    const cefrOrder = { A1: 1, A2: 2, B1: 3 };
 
     const number = new Intl.NumberFormat('en');
     const escapeHtml = value => value.replace(/[&<>'"]/g, char => ({
@@ -690,18 +814,23 @@
       render(value);
     }
 
-    function setVerbClass(value, updateUrl = true) {
-      verbClass = ['weak', 'strong'].includes(value) ? value : 'all';
-      verbClassButtons.forEach(button => {
-        button.classList.toggle('active', button.dataset.verbClass === verbClass);
-      });
+    function setCefr(value, updateUrl = true) {
+      cefr = ['A1', 'A2', 'B1'].includes(value) ? value : 'all';
+      cefrButtons.forEach(button => button.classList.toggle('active', button.dataset.cefr === cefr));
       if (updateUrl) {
         const url = new URL(window.location.href);
-        if (verbClass === 'all') url.searchParams.delete('verb-class');
-        else url.searchParams.set('verb-class', verbClass);
+        if (cefr === 'all') url.searchParams.delete('cefr');
+        else url.searchParams.set('cefr', cefr);
         history.replaceState(null, '', url);
       }
+      if (nouns.length) render(search.value);
       if (verbs.length) renderVerbs(verbSearch.value);
+    }
+
+    function atOrBelowLevel(lemma, selectedLevel, partOfSpeech) {
+      if (selectedLevel === 'all') return true;
+      const earliest = cefrLevels[partOfSpeech][lemma];
+      return earliest && cefrOrder[earliest] <= cefrOrder[selectedLevel];
     }
 
     function setVerbSearch(value, updateUrl = true) {
@@ -715,16 +844,28 @@
       renderVerbs(value);
     }
 
+    function principalPartsMarkup(verb) {
+      const parts = verb?.principalParts;
+      return parts?.present3?.[0] && parts?.preterite?.[0] && parts?.participle2?.[0]
+        ? `<span class="principal-parts">${[
+            parts.present3[0],
+            parts.preterite[0],
+            parts.participle2[0],
+          ].map(escapeHtml).join(' · ')}</span>`
+        : '';
+    }
+
     function verbRow(verb) {
+      const principalParts = principalPartsMarkup(verb);
       return `
         <li class="noun">
           <span class="rank">#${number.format(verb.rank)}</span>
-          <span class="word">${escapeHtml(verb.lemma)}<span class="verb-class">${escapeHtml(verb.class)}</span>${verb.dudenCore ? '<span class="verb-class duden-core" title="Duden core strong-verb inventory">Duden</span>' : ''}</span>
+          <span class="word">${escapeHtml(verb.lemma)}${verb.dudenCore ? '<span class="verb-class duden-core" title="Duden core strong-verb inventory">Duden</span>' : ''}${principalParts}</span>
           <span class="frequency" title="Corpus frequency">${number.format(verb.frequency)}</span>
         </li>`;
     }
 
-    function renderStrongFamilies(items, expandAll = false) {
+    function renderVerbFamilies(items, expandAll = false) {
       const families = new Map();
       items.forEach(verb => {
         const stem = verb.stem || verb.lemma;
@@ -733,13 +874,17 @@
       });
       return [...families.entries()]
         .sort((a, b) => a[1][0].rank - b[1][0].rank)
-        .map(([stem, family]) => `
-          <li class="verb-family">
-            <details ${expandAll ? 'open' : ''}>
-              <summary>-${escapeHtml(stem)}<span class="verb-family-total">${number.format(family.length)} ${family.length === 1 ? 'verb' : 'verbs'}</span></summary>
-              <ol class="noun-list">${family.map(verbRow).join('')}</ol>
-            </details>
-          </li>`).join('');
+        .map(([stem, family]) => {
+          const totalFrequency = family.reduce((sum, verb) => sum + verb.frequency, 0);
+          const baseVerb = verbs.find(verb => verb.lemma === stem) || family[0];
+          return `
+            <li class="verb-family">
+              <details ${expandAll ? 'open' : ''}>
+                <summary>${escapeHtml(stem)}<span class="verb-family-total">${number.format(totalFrequency)}</span>${principalPartsMarkup(baseVerb)}</summary>
+                <ol class="noun-list">${family.map(verbRow).join('')}</ol>
+              </details>
+            </li>`;
+        }).join('');
     }
 
     function renderVerbs(query = '') {
@@ -754,19 +899,27 @@
         verbSearch.title = error.message;
         return;
       }
-      const selected = verbs.slice(0, verbLimit);
-      const byClass = verbClass === 'all'
-        ? selected
-        : selected.filter(verb => verb.class === verbClass);
+      const selected = verbs
+        .slice(0, verbLimit)
+        .filter(verb => atOrBelowLevel(verb.lemma, cefr, 'verbs'));
       const matches = matcher
-        ? byClass.filter(verb => matcher.test(verb.lemma))
-        : byClass;
-      verbCount.textContent = `${number.format(matches.length)} verbs`;
-      verbList.innerHTML = matches.length
-        ? verbClass === 'strong'
-          ? renderStrongFamilies(matches, Boolean(pattern))
-          : matches.map(verbRow).join('')
-        : '<li class="empty">No matching verbs</li>';
+        ? selected.filter(verb => matcher.test(verb.lemma))
+        : selected;
+      const paradigmCounts = {};
+      for (const [paradigm, target] of Object.entries(paradigmTargets)) {
+        const includedParadigms = paradigm === 'regular'
+          ? ['regular', 'inserted-e', 'inseparable', 'separable', 'ieren']
+          : [paradigm];
+        const items = matches.filter(verb => includedParadigms.includes(verb.paradigm || verb.class));
+        paradigmCounts[paradigm] = items.length;
+        target.count.textContent = `${number.format(items.length)} verbs`;
+        target.list.innerHTML = items.length
+          ? renderVerbFamilies(items, Boolean(pattern))
+          : `<li class="empty">No matching ${escapeHtml(paradigm)} verbs</li>`;
+      }
+      [...weakParadigms.children]
+        .sort((a, b) => paradigmCounts[b.dataset.paradigm] - paradigmCounts[a.dataset.paradigm])
+        .forEach(section => weakParadigms.append(section));
     }
 
     function render(query = '') {
@@ -785,9 +938,10 @@
       heuristicButtons.forEach(button => {
         button.classList.toggle('active', button.dataset.regex === pattern);
       });
+      const byLevel = selected.filter(noun => atOrBelowLevel(noun.lemma, cefr, 'nouns'));
       const matches = matcher
-        ? selected.filter(noun => matcher.test(noun.lemma))
-        : selected;
+        ? byLevel.filter(noun => matcher.test(noun.lemma))
+        : byLevel;
 
       for (const [gender, target] of Object.entries(genders)) {
         const items = matches.filter(noun => noun.genders.includes(gender));
@@ -806,12 +960,24 @@
     const initialParams = new URLSearchParams(window.location.search);
     setLimit(initialParams.get('top') || 10000, false);
     setVerbLimit(initialParams.get('verb-top') || 10000, false);
-    setVerbClass(initialParams.get('verb-class'), false);
+    setCefr(initialParams.get('cefr') || initialParams.get('verb-cefr'), false);
     search.value = initialParams.get('q') || '';
     verbSearch.value = initialParams.get('verb-q') || '';
     setView(initialParams.get('view'), false);
 
-    fetch('./german-nouns-top-10000.json')
+    fetch('./goethe-cefr-levels.json')
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        cefrLevels = data;
+        if (nouns.length) render(search.value);
+        if (verbs.length) renderVerbs(verbSearch.value);
+      })
+      .catch(error => console.error('Could not load Goethe CEFR levels:', error));
+
+    fetch('./german-nouns.json')
       .then(response => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();
@@ -826,15 +992,17 @@
         status.innerHTML = `Could not load the noun data.<br><small>${escapeHtml(error.message)} — serve this directory through a local web server instead of opening the file directly.</small>`;
       });
 
-    fetch('./german-verbs-top-10000.json')
+    fetch('./german-verbs.json?v=3')
       .then(response => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();
       })
       .then(data => {
-        verbs = data;
+        verbs = data.verbs
+          .filter(verb => verb.rank != null && verb.rank <= 10000)
+          .sort((a, b) => a.rank - b.rank);
         verbStatus.hidden = true;
-        verbResults.hidden = false;
+        verbColumns.hidden = false;
         renderVerbs(verbSearch.value);
       })
       .catch(error => {
@@ -852,8 +1020,8 @@
     });
     search.addEventListener('input', event => setSearch(event.target.value));
     verbSearch.addEventListener('input', event => setVerbSearch(event.target.value));
-    verbClassButtons.forEach(button => {
-      button.addEventListener('click', () => setVerbClass(button.dataset.verbClass));
+    cefrButtons.forEach(button => {
+      button.addEventListener('click', () => setCefr(cefr === button.dataset.cefr ? 'all' : button.dataset.cefr));
     });
     heuristicButtons.forEach(button => {
       button.addEventListener('click', () => {
@@ -881,7 +1049,7 @@
       verbSearch.value = params.get('verb-q') || '';
       setLimit(params.get('top') || 10000, false);
       setVerbLimit(params.get('verb-top') || 10000, false);
-      setVerbClass(params.get('verb-class'), false);
+      setCefr(params.get('cefr') || params.get('verb-cefr'), false);
       if (verbs.length) renderVerbs(verbSearch.value);
       setView(params.get('view'), false);
     });

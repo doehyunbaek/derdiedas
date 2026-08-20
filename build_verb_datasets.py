@@ -25,6 +25,12 @@ EXCLUDED_LEMMAS = {
 EXCLUDED_FORMS = {
     "mussen", "mussn", "muessen", "mußt", "müs", "kannstn",
 }
+# Non-lexical lemmas produced when the corpus tagger mistakes adjective forms
+# for infinitives.  Empfehlenswert is an adjective, not a verb; these two
+# spellings are unattested artifacts derived from it.
+NON_VERB_LEMMAS = {
+    "empfehlensweren", "empfehlenswern",
+}
 # Strict strong base verbs, using Duden's criterion (ablaut plus an -en
 # participle) and the numbered inventory at deutschplus.net. The inventory's
 # weak/mixed section (mahlen onward) is deliberately excluded. Compounds are
@@ -443,6 +449,8 @@ def weak_paradigm(lemma, stem):
 
 
 def conjugation_class(lemma, classes):
+    if lemma in NON_VERB_LEMMAS:
+        return "unknown"
     if any(lemma == base or lemma.endswith(base) for base in IRREGULAR_BASES):
         return "irregular"
     if lemma in CLASS_OVERRIDES:

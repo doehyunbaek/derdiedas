@@ -25,11 +25,14 @@ EXCLUDED_LEMMAS = {
 EXCLUDED_FORMS = {
     "mussen", "mussn", "muessen", "mußt", "müs", "kannstn",
 }
-# Non-lexical lemmas produced when the corpus tagger mistakes adjective forms
-# for infinitives.  Empfehlenswert is an adjective, not a verb; these two
-# spellings are unattested artifacts derived from it.
+# Unambiguous corpus/tagger artifacts. Correct misspellings of real verbs are
+# folded into the canonical lemma; adjective-derived pseudo-verbs are dropped.
+LEMMA_CORRECTIONS = {
+    "emfehlen": "empfehlen",
+    "emnpfehlen": "empfehlen",
+}
 NON_VERB_LEMMAS = {
-    "empfehlensweren", "empfehlenswern",
+    "emfehlensweren", "empfehlensweren", "empfehlenswern",
 }
 # Strict strong base verbs, using Duden's criterion (ablaut plus an -en
 # participle) and the numbered inventory at deutschplus.net. The inventory's
@@ -115,14 +118,24 @@ def unified_records():
     return json.loads(UNIFIED.read_text(encoding="utf-8"))["verbs"]
 
 
+def normalize_corpus_lemma(lemma):
+    """Canonicalize known tagger misspellings and reject pseudo-verbs."""
+    if lemma in NON_VERB_LEMMAS:
+        return None
+    return LEMMA_CORRECTIONS.get(lemma, lemma)
+
+
 def build_counts():
     records = unified_records()
     if records:
         print(f"Using raw counts from {UNIFIED.name}", flush=True)
-        return Counter({
-            record["lemma"]: record["rawFrequency"]
-            for record in records if record.get("rawFrequency") is not None
-        })
+        counts = Counter()
+        for record in records:
+            frequency = record.get("rawFrequency")
+            lemma = normalize_corpus_lemma(record["lemma"])
+            if frequency is not None and lemma:
+                counts[lemma] += frequency
+        return counts
 
     import spacy
     nlp = spacy.load("de_core_news_sm", disable=["parser", "ner"])
@@ -132,7 +145,7 @@ def build_counts():
         documents += 1
         for token in doc:
             if token.pos_ in {"VERB", "AUX"} and token.is_alpha:
-                lemma = token.lemma_.strip().lower()
+                lemma = normalize_corpus_lemma(token.lemma_.strip().lower())
                 if lemma and lemma.isalpha():
                     counts[lemma] += 1
         if documents % 100_000 == 0:
@@ -309,13 +322,16 @@ def build_metadata(raw_counts):
     records = unified_records()
     if records:
         print(f"Using normalized counts and classes from {UNIFIED.name}", flush=True)
-        normalized = Counter({
-            record["lemma"]: record["frequency"]
-            for record in records if record.get("frequency")
-        })
+        normalized = Counter()
+        for record in records:
+            lemma = normalize_corpus_lemma(record["lemma"])
+            if lemma and record.get("frequency"):
+                normalized[lemma] += record["frequency"]
         classes = {
             record["lemma"]: record["kaikkiClass"]
-            for record in records if record.get("kaikkiClass")
+            for record in records
+            if record.get("kaikkiClass")
+            and normalize_corpus_lemma(record["lemma"]) == record["lemma"]
         }
         return normalized, classes
 

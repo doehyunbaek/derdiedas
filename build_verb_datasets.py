@@ -30,6 +30,7 @@ EXCLUDED_FORMS = {
 LEMMA_CORRECTIONS = {
     "emfehlen": "empfehlen",
     "emnpfehlen": "empfehlen",
+    "vermuteen": "vermuten",
 }
 NON_VERB_LEMMAS = {
     "emfehlensweren", "empfehlensweren", "empfehlenswern",

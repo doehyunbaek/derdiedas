@@ -14,6 +14,43 @@ NOUNS = ROOT / "german-nouns.json"
 KAIKKI_URL = "https://kaikki.org/dictionary/German/kaikki.org-dictionary-German.jsonl.gz"
 
 
+# Reviewed common learner senses, rather than whichever homograph occurs first.
+# An empty list means no usual plural in the selected sense, not that a specialist
+# or historical plural can never occur.
+PLURAL_OVERRIDES = {
+    "Bank": ["Banken", "Bänke"],
+    "Wort": ["Wörter", "Worte"],
+    "Schild": ["Schilder", "Schilde"],
+    "Wasser": ["Wasser", "Wässer"],
+    "Post": [],  # mail; not posts or historical postal services
+    "Reis": [],  # rice; not das Reis (twig)
+    "Gepäck": [],
+    "Unterricht": [],
+    "Kleidung": [],
+    "Milch": [],
+    "Sport": [],
+}
+PLURAL_ARTICLES = {"Schild": {"Schilder": "das", "Schilde": "der"}}
+
+
+def set_plurals(noun, forms):
+    if forms:
+        noun["plurals"] = forms
+        noun["pluralClasses"] = list(dict.fromkeys(plural_class(noun["lemma"], form) for form in forms))
+    else:
+        noun.pop("plurals", None)
+        noun.pop("pluralClasses", None)
+    noun.pop("pluralArticles", None)
+    if noun["lemma"] in PLURAL_ARTICLES:
+        noun["pluralArticles"] = PLURAL_ARTICLES[noun["lemma"]]
+
+
+def apply_plural_overrides(nouns):
+    for noun in nouns:
+        if noun["lemma"] in PLURAL_OVERRIDES:
+            set_plurals(noun, PLURAL_OVERRIDES[noun["lemma"]])
+
+
 def plural_class(singular, plural):
     singular = singular.casefold()
     plural = plural.casefold()
@@ -66,9 +103,15 @@ def open_dictionary(path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("dictionary", nargs="?", help="Kaikki German JSONL or JSONL.gz (downloaded when omitted)")
+    parser.add_argument("--refresh-plurals", action="store_true", help="Apply reviewed corrections without downloading the dictionary")
     args = parser.parse_args()
 
     nouns = json.loads(NOUNS.read_text(encoding="utf-8"))
+    if args.refresh_plurals:
+        apply_plural_overrides(nouns)
+        NOUNS.write_text(json.dumps(nouns, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print("Applied reviewed plural corrections")
+        return
     wanted = {noun["lemma"] for noun in nouns}
     plurals = defaultdict(list)
     with open_dictionary(args.dictionary) as source:
@@ -85,15 +128,11 @@ def main():
         # Kaikki orders the usual dictionary plural first; later forms are often
         # rare, archaic, or restricted alternatives (for example Jahr after numerals).
         forms = plurals[noun["lemma"]][:1]
-        if forms:
-            noun["plurals"] = forms
-            noun["pluralClasses"] = list(dict.fromkeys(plural_class(noun["lemma"], form) for form in forms))
-        else:
-            noun.pop("plurals", None)
-            noun.pop("pluralClasses", None)
+        set_plurals(noun, forms)
 
+    apply_plural_overrides(nouns)
     NOUNS.write_text(json.dumps(nouns, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Added plurals to {sum(bool(value) for value in plurals.values()):,}/{len(nouns):,} nouns")
+    print(f"Added plurals to {sum(bool(noun.get('plurals')) for noun in nouns):,}/{len(nouns):,} nouns")
 
 
 if __name__ == "__main__":

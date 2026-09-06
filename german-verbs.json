@@ -2803,33 +2803,7 @@
       "kaikkiClass": "mixed",
       "paradigm": "regular",
       "stem": "fragen",
-      "principalParts": {
-        "present3": [
-          "fragt",
-          "frägt"
-        ],
-        "preterite": [
-          "fragte",
-          "frug"
-        ],
-        "participle2": [
-          "gefragt"
-        ],
-        "subjunctive2": [
-          "fragte",
-          "früge"
-        ],
-        "imperativeSingular": [
-          "frag",
-          "frage"
-        ],
-        "imperativePlural": [
-          "fragt"
-        ],
-        "auxiliaries": [
-          "haben"
-        ]
-      },
+      "principalParts": null,
       "dudenCore": false,
       "frequency": 1167,
       "rank": 115,

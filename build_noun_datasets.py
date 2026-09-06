@@ -6,8 +6,6 @@ from pathlib import Path
 import json
 import sys
 
-import spacy
-
 ROOT = Path(__file__).resolve().parent
 CORPUS = ROOT / "deu_mixed-typical_2011_1M" / "deu_mixed-typical_2011_1M-sentences.txt"
 KAIKKI = ROOT / "kaikki.org-dictionary-German.jsonl"
@@ -17,6 +15,23 @@ GENDER_ORDER = ("masculine", "feminine", "neuter")
 ARTICLES = {"masculine": "der", "feminine": "die", "neuter": "das"}
 # Prefer selected common standard senses over rare homographs and regional variants.
 GENDER_OVERRIDES = {
+    # Common learner meanings; do not merge rare homographs into these entries.
+    "Alter": {"neuter"},  # age
+    "Automat": {"masculine"},
+    "Dame": {"feminine"},
+    "Fax": {"neuter"},
+    "Laden": {"masculine"},  # shop, not nominalized laden
+    "Mensch": {"masculine"},  # neuter is regional/derogatory
+    "Mittag": {"masculine"},
+    "Morgen": {"masculine"},  # morning, not the nominalized adverb
+    "Mund": {"masculine"},
+    "Ort": {"masculine"},  # place
+    "Post": {"feminine"},  # mail, not a social-media post
+    "Prospekt": {"masculine"},
+    "Reis": {"masculine"},  # rice, not a twig (das Reis)
+    "Salat": {"masculine"},
+    "Taxi": {"neuter"},
+    "Tee": {"masculine"},  # tea, not a golf tee
     "Barometer": {"neuter"},
     "Butter": {"feminine"},
     "Disco": {"feminine"},
@@ -54,6 +69,8 @@ def build_counts():
     if COUNTS.exists():
         print(f"Using existing {COUNTS.name}", flush=True)
         return Counter(json.loads(COUNTS.read_text(encoding="utf-8")))
+
+    import spacy
 
     # The parser and NER are unnecessary for POS identification and lemmatization.
     nlp = spacy.load("de_core_news_sm", disable=["parser", "ner"])
@@ -150,7 +167,29 @@ def export(counts, genders):
     print(f"Gender-annotated ranked lemmas available: {len(ranked):,}", flush=True)
 
 
+def refresh_gender_overrides(path):
+    """Correct the published dataset without rebuilding counts or losing plurals."""
+    data = json.loads(path.read_text(encoding="utf-8"))
+    changed = 0
+    for noun in data:
+        override = GENDER_OVERRIDES.get(noun["lemma"])
+        if override is None:
+            continue
+        values = [gender for gender in GENDER_ORDER if gender in override]
+        articles = [ARTICLES[value] for value in values]
+        genders = [value[0] for value in values]
+        if noun["articles"] != articles or noun["genders"] != genders:
+            noun.update(articles=articles, genders=genders)
+            changed += 1
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return changed
+
+
 def main():
+    if sys.argv[1:] == ["--refresh-genders"]:
+        changed = refresh_gender_overrides(ROOT / "german-nouns.json")
+        print(f"Corrected genders for {changed} published nouns")
+        return
     counts = build_counts()
     genders = build_genders(set(counts))
     export(counts, genders)

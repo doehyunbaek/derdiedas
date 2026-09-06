@@ -105,12 +105,10 @@
     "rank": 7,
     "lemma": "Mensch",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
     "frequency": 4608,
     "plurals": [
@@ -929,12 +927,10 @@
     "rank": 55,
     "lemma": "Ort",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
     "frequency": 1897,
     "plurals": [
@@ -1272,9 +1268,11 @@
     ],
     "frequency": 1579,
     "plurals": [
+      "Banken",
       "Bänke"
     ],
     "pluralClasses": [
+      "en",
       "e"
     ]
   },
@@ -1340,10 +1338,12 @@
     ],
     "frequency": 1506,
     "plurals": [
-      "Wörter"
+      "Wörter",
+      "Worte"
     ],
     "pluralClasses": [
-      "er"
+      "er",
+      "e"
     ]
   },
   {
@@ -1544,7 +1544,8 @@
     ],
     "frequency": 1427,
     "plurals": [
-      "Wasser"
+      "Wasser",
+      "Wässer"
     ],
     "pluralClasses": [
       "unchanged"
@@ -7746,13 +7747,7 @@
     "genders": [
       "m"
     ],
-    "frequency": 505,
-    "plurals": [
-      "Sporte"
-    ],
-    "pluralClasses": [
-      "e"
-    ]
+    "frequency": 505
   },
   {
     "rank": 458,
@@ -7996,12 +7991,10 @@
     "rank": 472,
     "lemma": "Morgen",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
     "frequency": 496,
     "plurals": [
@@ -8117,20 +8110,12 @@
     "rank": 479,
     "lemma": "Post",
     "articles": [
-      "der",
       "die"
     ],
     "genders": [
-      "m",
       "f"
     ],
-    "frequency": 488,
-    "plurals": [
-      "Posten"
-    ],
-    "pluralClasses": [
-      "en"
-    ]
+    "frequency": 488
   },
   {
     "rank": 480,
@@ -8662,11 +8647,9 @@
     "rank": 512,
     "lemma": "Alter",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 461,
@@ -10732,13 +10715,7 @@
     "genders": [
       "m"
     ],
-    "frequency": 373,
-    "plurals": [
-      "Unterrichte"
-    ],
-    "pluralClasses": [
-      "e"
-    ]
+    "frequency": 373
   },
   {
     "rank": 634,
@@ -11990,12 +11967,10 @@
     "rank": 708,
     "lemma": "Dame",
     "articles": [
-      "die",
-      "das"
+      "die"
     ],
     "genders": [
-      "f",
-      "n"
+      "f"
     ],
     "frequency": 335,
     "plurals": [
@@ -17790,12 +17765,10 @@
     "rank": 1054,
     "lemma": "Laden",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
     "frequency": 222,
     "plurals": [
@@ -19638,13 +19611,7 @@
     "genders": [
       "f"
     ],
-    "frequency": 199,
-    "plurals": [
-      "Kleidungen"
-    ],
-    "pluralClasses": [
-      "en"
-    ]
+    "frequency": 199
   },
   {
     "rank": 1166,
@@ -20137,12 +20104,10 @@
     "rank": 1195,
     "lemma": "Mittag",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
     "frequency": 193,
     "plurals": [
@@ -22190,11 +22155,17 @@
     ],
     "frequency": 169,
     "plurals": [
-      "Schilder"
+      "Schilder",
+      "Schilde"
     ],
     "pluralClasses": [
-      "er"
-    ]
+      "er",
+      "e"
+    ],
+    "pluralArticles": {
+      "Schilder": "das",
+      "Schilde": "der"
+    }
   },
   {
     "rank": 1318,
@@ -22693,12 +22664,10 @@
     "rank": 1347,
     "lemma": "Mund",
     "articles": [
-      "der",
-      "die"
+      "der"
     ],
     "genders": [
-      "m",
-      "f"
+      "m"
     ],
     "frequency": 164,
     "plurals": [
@@ -24089,13 +24058,7 @@
     "genders": [
       "f"
     ],
-    "frequency": 152,
-    "plurals": [
-      "Milchen"
-    ],
-    "pluralClasses": [
-      "en"
-    ]
+    "frequency": 152
   },
   {
     "rank": 1431,
@@ -28887,12 +28850,10 @@
     "rank": 1717,
     "lemma": "Tee",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
     "frequency": 119,
     "plurals": [
@@ -37948,11 +37909,9 @@
     "rank": 2262,
     "lemma": "Taxi",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 86,
@@ -38727,12 +38686,10 @@
     "rank": 2309,
     "lemma": "Automat",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
     "frequency": 83,
     "plurals": [
@@ -39018,14 +38975,10 @@
     "rank": 2326,
     "lemma": "Salat",
     "articles": [
-      "der",
-      "die",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "f",
-      "n"
+      "m"
     ],
     "frequency": 83,
     "plurals": [
@@ -42774,13 +42727,7 @@
     "genders": [
       "n"
     ],
-    "frequency": 72,
-    "plurals": [
-      "Gepäcke"
-    ],
-    "pluralClasses": [
-      "e"
-    ]
+    "frequency": 72
   },
   {
     "rank": 2550,
@@ -48770,11 +48717,9 @@
     "rank": 2912,
     "lemma": "Fax",
     "articles": [
-      "der",
       "das"
     ],
     "genders": [
-      "m",
       "n"
     ],
     "frequency": 60,
@@ -55905,12 +55850,10 @@
     "rank": 3341,
     "lemma": "Prospekt",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
     "frequency": 50,
     "plurals": [
@@ -61353,20 +61296,12 @@
     "rank": 3667,
     "lemma": "Reis",
     "articles": [
-      "der",
-      "das"
+      "der"
     ],
     "genders": [
-      "m",
-      "n"
+      "m"
     ],
-    "frequency": 44,
-    "plurals": [
-      "Reise"
-    ],
-    "pluralClasses": [
-      "e"
-    ]
+    "frequency": 44
   },
   {
     "rank": 3668,

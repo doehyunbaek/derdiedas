@@ -511,7 +511,9 @@ def verb_record(
         "stem": stem,
         "principalParts": (
             principal_parts.get(lemma)
-            if verb_class in {"strong", "irregular"} or classes.get(lemma) == "mixed"
+            # Fragen uses regular standard forms; regional frägt/frug should
+            # not trigger the special principal-parts display.
+            if verb_class in {"strong", "irregular"} or (classes.get(lemma) == "mixed" and lemma != "fragen")
             else None
         ),
         "dudenCore": lemma in STRONG_BASES,

@@ -1,0 +1,3364 @@
+{
+  "schemaVersion": 1,
+  "source": "Leipzig deu_mixed-typical_2011_1M",
+  "method": "Alphabetic ADP tokens excluding PTKVZ verb particles; lowercase spaCy lemmas with explicit contraction overrides. Ranks are within prepositions, not all words.",
+  "caseSource": "Manually curated common standard government; not inferred from corpus. Unclassified entries may include tagging errors.",
+  "model": "de_core_news_sm 3.8.0",
+  "spacyVersion": "3.8.16",
+  "sentences": 999926,
+  "alphabeticTokens": 6362754,
+  "excludedUses": {
+    "gegenüber": {
+      "ADP/PTKVZ": 194,
+      "NOUN/NN": 21,
+      "ADV/PTKVZ": 2,
+      "ADV/ADV": 25,
+      "PROPN/NE": 1,
+      "NOUN/ADV": 1,
+      "ADV/NN": 3,
+      "NOUN/APPR": 1
+    },
+    "aus": {
+      "ADP/PTKVZ": 7823,
+      "NOUN/NN": 203
+    },
+    "entgegen": {
+      "ADP/PTKVZ": 523
+    },
+    "auf": {
+      "ADP/PTKVZ": 4282,
+      "ADV/ADV": 5,
+      "PROPN/NE": 1,
+      "ADV/APPR": 2
+    },
+    "an": {
+      "ADP/PTKVZ": 8545,
+      "PROPN/NE": 1,
+      "ADV/PTKVZ": 2,
+      "NOUN/NN": 1,
+      "NOUN/PTKVZ": 1
+    },
+    "mit": {
+      "ADP/PTKVZ": 2348,
+      "PROPN/NE": 1,
+      "ADV/ADV": 1,
+      "ADV/PTKVZ": 1
+    },
+    "bei": {
+      "ADP/PTKVZ": 443
+    },
+    "über": {
+      "ADP/PTKVZ": 225,
+      "ADV/APPR": 75,
+      "ADV/ADV": 850,
+      "PART/PTKZU": 2,
+      "NOUN/NN": 1
+    },
+    "um": {
+      "ADP/PTKVZ": 755,
+      "SCONJ/KOUI": 388,
+      "ADV/PTKVZ": 5,
+      "SCONJ/APPR": 10
+    },
+    "bis": {
+      "CCONJ/KON": 1192,
+      "CCONJ/APPR": 19,
+      "ADV/ADV": 470,
+      "SCONJ/KOUS": 78,
+      "SCONJ/APPR": 2,
+      "ADV/APPR": 7,
+      "PROPN/NE": 1,
+      "NOUN/NE": 1
+    },
+    "statt": {
+      "ADV/PTKVZ": 2912,
+      "CCONJ/APPR": 1,
+      "SCONJ/PTKVZ": 2,
+      "NOUN/NN": 1,
+      "SCONJ/KOUI": 36,
+      "ADP/PTKVZ": 1,
+      "SCONJ/APPR": 9,
+      "PART/PTKVZ": 1,
+      "ADV/KOUI": 1
+    },
+    "kraft": {
+      "NOUN/NN": 789,
+      "PROPN/NN": 2,
+      "PROPN/NE": 2
+    },
+    "unter": {
+      "ADP/PTKVZ": 142,
+      "ADV/ADV": 21,
+      "PART/APPR": 1
+    },
+    "zu": {
+      "PART/PTKA": 1386,
+      "ADP/PTKVZ": 3814,
+      "PART/PTKZU": 6741,
+      "PART/APPR": 55,
+      "ADV/ADV": 483,
+      "PART/PTKVZ": 8,
+      "ADV/APPR": 3,
+      "PART/ADV": 1,
+      "NOUN/NN": 2,
+      "PROPN/NN": 1
+    },
+    "nach": {
+      "ADP/PTKVZ": 1506,
+      "ADV/ADV": 81,
+      "ADV/PTKVZ": 4
+    },
+    "vor": {
+      "ADP/PTKVZ": 3754,
+      "PART/PTKZU": 2,
+      "PROPN/NE": 1,
+      "ADV/ADV": 69,
+      "ADV/PTKVZ": 1,
+      "NOUN/NN": 1
+    },
+    "entsprechend": {
+      "ADV/ADJD": 782,
+      "ADV/APPR": 3
+    },
+    "durch": {
+      "ADP/PTKVZ": 702,
+      "PROPN/NE": 1,
+      "X/XY": 1
+    },
+    "wider": {
+      "ADV/PTKVZ": 95,
+      "ADP/PTKVZ": 1
+    },
+    "zwischen": {
+      "ADV/ADV": 238,
+      "ADV/APPR": 9,
+      "ADP/PTKVZ": 2
+    },
+    "anlässlich": {
+      "ADV/ADJD": 50,
+      "NOUN/ADJD": 7
+    },
+    "gemäß": {
+      "ADV/ADJD": 26,
+      "ADJ/ADJD": 1,
+      "ADV/APPR": 5
+    },
+    "trotz": {
+      "NOUN/NN": 14
+    },
+    "am": {
+      "PART/PTKA": 272,
+      "PART/APPRART": 14,
+      "PROPN/NE": 1,
+      "PART/PTKZU": 5
+    },
+    "entlang": {
+      "ADP/PTKVZ": 80,
+      "ADV/ADV": 1
+    },
+    "bezüglich": {
+      "ADV/ADJD": 116,
+      "PROPN/NE": 1
+    },
+    "jenseits": {
+      "NOUN/NN": 10,
+      "ADV/ADV": 1
+    },
+    "von": {
+      "ADP/PTKVZ": 16,
+      "PROPN/NE": 26,
+      "PROPN/APPR": 3
+    },
+    "zwecks": {
+      "NOUN/NN": 1,
+      "ADJ/APPR": 1,
+      "PROPN/APPR": 1
+    },
+    "wegen": {
+      "NOUN/NN": 45,
+      "ADP/PTKVZ": 1
+    },
+    "in": {
+      "ADP/PTKVZ": 16,
+      "PROPN/NE": 5
+    },
+    "zuliebe": {
+      "ADP/PTKVZ": 1
+    },
+    "außerhalb": {
+      "ADV/ADV": 4,
+      "ADV/ADJD": 2,
+      "ADV/PTKVZ": 4,
+      "NOUN/NN": 1
+    },
+    "beiderseits": {
+      "ADV/ADV": 6,
+      "NOUN/NN": 1
+    },
+    "außer": {
+      "SCONJ/KOUS": 1,
+      "SCONJ/APPR": 1
+    },
+    "im": {
+      "NOUN/NN": 2
+    },
+    "diesseits": {
+      "NOUN/NN": 2
+    },
+    "neben": {
+      "ADP/PTKVZ": 2
+    },
+    "hinter": {
+      "ADP/PTKVZ": 1
+    },
+    "samt": {
+      "NOUN/NN": 4
+    },
+    "gegen": {
+      "ADP/PTKVZ": 7,
+      "ADV/ADV": 3,
+      "ADV/APPR": 3
+    },
+    "längs": {
+      "NOUN/NN": 3,
+      "VERB/VVFIN": 1,
+      "ADV/ADV": 1
+    },
+    "während": {
+      "SCONJ/KOUS": 27
+    },
+    "mittels": {
+      "NOUN/NN": 6
+    },
+    "hinterm": {
+      "ADJ/APPRART": 1,
+      "DET/APPRART": 1
+    },
+    "ohne": {
+      "SCONJ/KOUI": 8,
+      "PROPN/NN": 5,
+      "SCONJ/APPR": 1
+    },
+    "seit": {
+      "ADP/PTKVZ": 1,
+      "SCONJ/KOUS": 3
+    },
+    "für": {
+      "PROPN/NE": 14
+    },
+    "vors": {
+      "PROPN/NE": 1
+    },
+    "angesichts": {
+      "NOUN/NN": 1
+    },
+    "unweit": {
+      "ADV/ADJD": 1
+    },
+    "übers": {
+      "ADP/PTKVZ": 1,
+      "X/FM": 1
+    },
+    "vom": {
+      "PART/APPRART": 1,
+      "PROPN/NE": 1
+    },
+    "überm": {
+      "PROPN/NE": 1
+    },
+    "ums": {
+      "PROPN/NE": 3,
+      "PROPN/ADJD": 1
+    },
+    "vorm": {
+      "NOUN/NN": 1
+    },
+    "zum": {
+      "PROPN/APPRART": 1
+    },
+    "beim": {
+      "PROPN/XY": 1
+    }
+  },
+  "contractions": {
+    "am": "an",
+    "ans": "an",
+    "aufs": "auf",
+    "beim": "bei",
+    "durchs": "durch",
+    "fürs": "für",
+    "hinterm": "hinter",
+    "hinters": "hinter",
+    "im": "in",
+    "ins": "in",
+    "überm": "über",
+    "übers": "über",
+    "ums": "um",
+    "unterm": "unter",
+    "unters": "unter",
+    "vom": "von",
+    "vorm": "vor",
+    "vors": "vor",
+    "zum": "zu",
+    "zur": "zu"
+  },
+  "prepositions": [
+    {
+      "rank": 1,
+      "lemma": "in",
+      "frequency": 126217,
+      "perMillionTokens": 19836.85,
+      "caseGroup": "two-way",
+      "note": "",
+      "surfaceForms": {
+        "im": 37264,
+        "in": 85896,
+        "ins": 3057
+      }
+    },
+    {
+      "rank": 2,
+      "lemma": "auf",
+      "frequency": 55723,
+      "perMillionTokens": 8757.69,
+      "caseGroup": "two-way",
+      "note": "",
+      "surfaceForms": {
+        "auf": 55422,
+        "aufs": 301
+      }
+    },
+    {
+      "rank": 3,
+      "lemma": "für",
+      "frequency": 49843,
+      "perMillionTokens": 7833.56,
+      "caseGroup": "accusative",
+      "note": "",
+      "surfaceForms": {
+        "für": 49522,
+        "fürs": 321
+      }
+    },
+    {
+      "rank": 4,
+      "lemma": "mit",
+      "frequency": 49596,
+      "perMillionTokens": 7794.74,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "mit": 49596
+      }
+    },
+    {
+      "rank": 5,
+      "lemma": "von",
+      "frequency": 48248,
+      "perMillionTokens": 7582.88,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "von": 43146,
+        "vom": 5102
+      }
+    },
+    {
+      "rank": 6,
+      "lemma": "an",
+      "frequency": 43413,
+      "perMillionTokens": 6822.99,
+      "caseGroup": "two-way",
+      "note": "",
+      "surfaceForms": {
+        "an": 21353,
+        "am": 21800,
+        "ans": 260
+      }
+    },
+    {
+      "rank": 7,
+      "lemma": "zu",
+      "frequency": 39704,
+      "perMillionTokens": 6240.07,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "zu": 16026,
+        "zum": 12624,
+        "zur": 11054
+      }
+    },
+    {
+      "rank": 8,
+      "lemma": "bei",
+      "frequency": 29820,
+      "perMillionTokens": 4686.65,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "bei": 25268,
+        "beim": 4552
+      }
+    },
+    {
+      "rank": 9,
+      "lemma": "um",
+      "frequency": 18860,
+      "perMillionTokens": 2964.13,
+      "caseGroup": "accusative",
+      "note": "",
+      "surfaceForms": {
+        "ums": 408,
+        "um": 18452
+      }
+    },
+    {
+      "rank": 10,
+      "lemma": "nach",
+      "frequency": 18529,
+      "perMillionTokens": 2912.1,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "nach": 18529
+      }
+    },
+    {
+      "rank": 11,
+      "lemma": "aus",
+      "frequency": 17400,
+      "perMillionTokens": 2734.66,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "aus": 17400
+      }
+    },
+    {
+      "rank": 12,
+      "lemma": "über",
+      "frequency": 16719,
+      "perMillionTokens": 2627.64,
+      "caseGroup": "two-way",
+      "note": "",
+      "surfaceForms": {
+        "über": 16640,
+        "übers": 75,
+        "überm": 4
+      }
+    },
+    {
+      "rank": 13,
+      "lemma": "durch",
+      "frequency": 13635,
+      "perMillionTokens": 2142.94,
+      "caseGroup": "accusative",
+      "note": "",
+      "surfaceForms": {
+        "durch": 13498,
+        "durchs": 137
+      }
+    },
+    {
+      "rank": 14,
+      "lemma": "vor",
+      "frequency": 10314,
+      "perMillionTokens": 1621.0,
+      "caseGroup": "two-way",
+      "note": "",
+      "surfaceForms": {
+        "vor": 10240,
+        "vorm": 59,
+        "vors": 15
+      }
+    },
+    {
+      "rank": 15,
+      "lemma": "als",
+      "frequency": 8370,
+      "perMillionTokens": 1315.47,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "als": 8370
+      }
+    },
+    {
+      "rank": 16,
+      "lemma": "unter",
+      "frequency": 7299,
+      "perMillionTokens": 1147.14,
+      "caseGroup": "two-way",
+      "note": "",
+      "surfaceForms": {
+        "unter": 7230,
+        "unterm": 63,
+        "unters": 6
+      }
+    },
+    {
+      "rank": 17,
+      "lemma": "gegen",
+      "frequency": 7072,
+      "perMillionTokens": 1111.47,
+      "caseGroup": "accusative",
+      "note": "",
+      "surfaceForms": {
+        "gegen": 7072
+      }
+    },
+    {
+      "rank": 18,
+      "lemma": "seit",
+      "frequency": 4808,
+      "perMillionTokens": 755.65,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "seit": 4808
+      }
+    },
+    {
+      "rank": 19,
+      "lemma": "bis",
+      "frequency": 4360,
+      "perMillionTokens": 685.24,
+      "caseGroup": "accusative",
+      "note": "Usually accusative; often followed by another preposition, which governs its own case (bis zu + dative).",
+      "surfaceForms": {
+        "bis": 4360
+      }
+    },
+    {
+      "rank": 20,
+      "lemma": "ohne",
+      "frequency": 3878,
+      "perMillionTokens": 609.48,
+      "caseGroup": "accusative",
+      "note": "",
+      "surfaceForms": {
+        "ohne": 3878
+      }
+    },
+    {
+      "rank": 21,
+      "lemma": "zwischen",
+      "frequency": 3298,
+      "perMillionTokens": 518.33,
+      "caseGroup": "two-way",
+      "note": "",
+      "surfaceForms": {
+        "zwischen": 3298
+      }
+    },
+    {
+      "rank": 22,
+      "lemma": "wegen",
+      "frequency": 2831,
+      "perMillionTokens": 444.93,
+      "caseGroup": "genitive",
+      "note": "Standard genitive; dative is common colloquially.",
+      "surfaceForms": {
+        "wegen": 2831
+      }
+    },
+    {
+      "rank": 23,
+      "lemma": "ab",
+      "frequency": 2362,
+      "perMillionTokens": 371.22,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ab": 2362
+      }
+    },
+    {
+      "rank": 24,
+      "lemma": "wie",
+      "frequency": 1530,
+      "perMillionTokens": 240.46,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "wie": 1530
+      }
+    },
+    {
+      "rank": 25,
+      "lemma": "hinter",
+      "frequency": 1484,
+      "perMillionTokens": 233.23,
+      "caseGroup": "two-way",
+      "note": "",
+      "surfaceForms": {
+        "hinter": 1467,
+        "hinters": 6,
+        "hinterm": 11
+      }
+    },
+    {
+      "rank": 26,
+      "lemma": "neben",
+      "frequency": 1439,
+      "perMillionTokens": 226.16,
+      "caseGroup": "two-way",
+      "note": "",
+      "surfaceForms": {
+        "neben": 1439
+      }
+    },
+    {
+      "rank": 27,
+      "lemma": "pro",
+      "frequency": 1363,
+      "perMillionTokens": 214.22,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "pro": 1363
+      }
+    },
+    {
+      "rank": 28,
+      "lemma": "während",
+      "frequency": 1284,
+      "perMillionTokens": 201.8,
+      "caseGroup": "genitive",
+      "note": "Genitive as a preposition; also a conjunction (excluded here).",
+      "surfaceForms": {
+        "während": 1284
+      }
+    },
+    {
+      "rank": 29,
+      "lemma": "gegenüber",
+      "frequency": 1142,
+      "perMillionTokens": 179.48,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "gegenüber": 1142
+      }
+    },
+    {
+      "rank": 30,
+      "lemma": "innerhalb",
+      "frequency": 1111,
+      "perMillionTokens": 174.61,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "innerhalb": 1111
+      }
+    },
+    {
+      "rank": 31,
+      "lemma": "per",
+      "frequency": 981,
+      "perMillionTokens": 154.18,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "per": 981
+      }
+    },
+    {
+      "rank": 32,
+      "lemma": "laut",
+      "frequency": 887,
+      "perMillionTokens": 139.41,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "laut": 887
+      }
+    },
+    {
+      "rank": 33,
+      "lemma": "trotz",
+      "frequency": 846,
+      "perMillionTokens": 132.96,
+      "caseGroup": "genitive",
+      "note": "Usually genitive; dative also occurs.",
+      "surfaceForms": {
+        "trotz": 846
+      }
+    },
+    {
+      "rank": 34,
+      "lemma": "aufgrund",
+      "frequency": 578,
+      "perMillionTokens": 90.84,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "aufgrund": 578
+      }
+    },
+    {
+      "rank": 35,
+      "lemma": "dank",
+      "frequency": 546,
+      "perMillionTokens": 85.81,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "dank": 546
+      }
+    },
+    {
+      "rank": 36,
+      "lemma": "statt",
+      "frequency": 511,
+      "perMillionTokens": 80.31,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "statt": 511
+      }
+    },
+    {
+      "rank": 37,
+      "lemma": "außerhalb",
+      "frequency": 361,
+      "perMillionTokens": 56.74,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "außerhalb": 361
+      }
+    },
+    {
+      "rank": 38,
+      "lemma": "mittels",
+      "frequency": 356,
+      "perMillionTokens": 55.95,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "mittels": 356
+      }
+    },
+    {
+      "rank": 39,
+      "lemma": "je",
+      "frequency": 348,
+      "perMillionTokens": 54.69,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "je": 348
+      }
+    },
+    {
+      "rank": 40,
+      "lemma": "angesichts",
+      "frequency": 325,
+      "perMillionTokens": 51.08,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "angesichts": 325
+      }
+    },
+    {
+      "rank": 41,
+      "lemma": "außer",
+      "frequency": 316,
+      "perMillionTokens": 49.66,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "außer": 316
+      }
+    },
+    {
+      "rank": 42,
+      "lemma": "anhand",
+      "frequency": 228,
+      "perMillionTokens": 35.83,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "anhand": 228
+      }
+    },
+    {
+      "rank": 43,
+      "lemma": "voll",
+      "frequency": 224,
+      "perMillionTokens": 35.2,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "voller": 202,
+        "voll": 22
+      }
+    },
+    {
+      "rank": 44,
+      "lemma": "entlang",
+      "frequency": 217,
+      "perMillionTokens": 34.1,
+      "caseGroup": "genitive",
+      "note": "Genitive before the noun; accusative when placed after it. Dative also occurs.",
+      "surfaceForms": {
+        "entlang": 217
+      }
+    },
+    {
+      "rank": 45,
+      "lemma": "hinaus",
+      "frequency": 201,
+      "perMillionTokens": 31.59,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hinaus": 201
+      }
+    },
+    {
+      "rank": 46,
+      "lemma": "unterhalb",
+      "frequency": 159,
+      "perMillionTokens": 24.99,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "unterhalb": 159
+      }
+    },
+    {
+      "rank": 47,
+      "lemma": "inklusive",
+      "frequency": 157,
+      "perMillionTokens": 24.67,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "inklusive": 157
+      }
+    },
+    {
+      "rank": 48,
+      "lemma": "hinsichtlich",
+      "frequency": 151,
+      "perMillionTokens": 23.73,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hinsichtlich": 151
+      }
+    },
+    {
+      "rank": 49,
+      "lemma": "zugunsten",
+      "frequency": 134,
+      "perMillionTokens": 21.06,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "zugunsten": 134
+      }
+    },
+    {
+      "rank": 50,
+      "lemma": "nahe",
+      "frequency": 133,
+      "perMillionTokens": 20.9,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "nahe": 133
+      }
+    },
+    {
+      "rank": 51,
+      "lemma": "binnen",
+      "frequency": 123,
+      "perMillionTokens": 19.33,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "binnen": 123
+      }
+    },
+    {
+      "rank": 52,
+      "lemma": "seitens",
+      "frequency": 109,
+      "perMillionTokens": 17.13,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "seitens": 109
+      }
+    },
+    {
+      "rank": 53,
+      "lemma": "oberhalb",
+      "frequency": 94,
+      "perMillionTokens": 14.77,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "oberhalb": 94
+      }
+    },
+    {
+      "rank": 54,
+      "lemma": "via",
+      "frequency": 87,
+      "perMillionTokens": 13.67,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "via": 87
+      }
+    },
+    {
+      "rank": 55,
+      "lemma": "inmitten",
+      "frequency": 86,
+      "perMillionTokens": 13.52,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "inmitten": 86
+      }
+    },
+    {
+      "rank": 56,
+      "lemma": "namens",
+      "frequency": 84,
+      "perMillionTokens": 13.2,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "namens": 84
+      }
+    },
+    {
+      "rank": 57,
+      "lemma": "jenseits",
+      "frequency": 83,
+      "perMillionTokens": 13.04,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "jenseits": 83
+      }
+    },
+    {
+      "rank": 58,
+      "lemma": "anstelle",
+      "frequency": 75,
+      "perMillionTokens": 11.79,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "anstelle": 75
+      }
+    },
+    {
+      "rank": 59,
+      "lemma": "einschließlich",
+      "frequency": 75,
+      "perMillionTokens": 11.79,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "einschließlich": 75
+      }
+    },
+    {
+      "rank": 60,
+      "lemma": "gemäß",
+      "frequency": 74,
+      "perMillionTokens": 11.63,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "gemäß": 74
+      }
+    },
+    {
+      "rank": 61,
+      "lemma": "samt",
+      "frequency": 73,
+      "perMillionTokens": 11.47,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "samt": 73
+      }
+    },
+    {
+      "rank": 62,
+      "lemma": "voller",
+      "frequency": 73,
+      "perMillionTokens": 11.47,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "voller": 73
+      }
+    },
+    {
+      "rank": 63,
+      "lemma": "infolge",
+      "frequency": 59,
+      "perMillionTokens": 9.27,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "infolge": 59
+      }
+    },
+    {
+      "rank": 64,
+      "lemma": "zuzüglich",
+      "frequency": 48,
+      "perMillionTokens": 7.54,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "zuzüglich": 48
+      }
+    },
+    {
+      "rank": 65,
+      "lemma": "entgegen",
+      "frequency": 45,
+      "perMillionTokens": 7.07,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "entgegen": 45
+      }
+    },
+    {
+      "rank": 66,
+      "lemma": "minus",
+      "frequency": 40,
+      "perMillionTokens": 6.29,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "minus": 40
+      }
+    },
+    {
+      "rank": 67,
+      "lemma": "entsprechend",
+      "frequency": 35,
+      "perMillionTokens": 5.5,
+      "caseGroup": "dative",
+      "note": "",
+      "surfaceForms": {
+        "entsprechend": 35
+      }
+    },
+    {
+      "rank": 68,
+      "lemma": "gen",
+      "frequency": 34,
+      "perMillionTokens": 5.34,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "gen": 34
+      }
+    },
+    {
+      "rank": 69,
+      "lemma": "mittel",
+      "frequency": 32,
+      "perMillionTokens": 5.03,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "mittels": 32
+      }
+    },
+    {
+      "rank": 70,
+      "lemma": "abseits",
+      "frequency": 31,
+      "perMillionTokens": 4.87,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "abseits": 31
+      }
+    },
+    {
+      "rank": 71,
+      "lemma": "unweit",
+      "frequency": 31,
+      "perMillionTokens": 4.87,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "unweit": 31
+      }
+    },
+    {
+      "rank": 72,
+      "lemma": "plus",
+      "frequency": 30,
+      "perMillionTokens": 4.71,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "plus": 30
+      }
+    },
+    {
+      "rank": 73,
+      "lemma": "denn",
+      "frequency": 28,
+      "perMillionTokens": 4.4,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "denn": 28
+      }
+    },
+    {
+      "rank": 74,
+      "lemma": "ausserhalb",
+      "frequency": 24,
+      "perMillionTokens": 3.77,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ausserhalb": 24
+      }
+    },
+    {
+      "rank": 75,
+      "lemma": "mangels",
+      "frequency": 24,
+      "perMillionTokens": 3.77,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "mangels": 24
+      }
+    },
+    {
+      "rank": 76,
+      "lemma": "wider",
+      "frequency": 24,
+      "perMillionTokens": 3.77,
+      "caseGroup": "accusative",
+      "note": "",
+      "surfaceForms": {
+        "wider": 24
+      }
+    },
+    {
+      "rank": 77,
+      "lemma": "anläßlich",
+      "frequency": 20,
+      "perMillionTokens": 3.14,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "anläßlich": 20
+      }
+    },
+    {
+      "rank": 78,
+      "lemma": "ausser",
+      "frequency": 18,
+      "perMillionTokens": 2.83,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ausser": 18
+      }
+    },
+    {
+      "rank": 79,
+      "lemma": "iii",
+      "frequency": 16,
+      "perMillionTokens": 2.51,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "iii": 16
+      }
+    },
+    {
+      "rank": 80,
+      "lemma": "ungeachtet",
+      "frequency": 16,
+      "perMillionTokens": 2.51,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ungeachtet": 16
+      }
+    },
+    {
+      "rank": 81,
+      "lemma": "zwecks",
+      "frequency": 16,
+      "perMillionTokens": 2.51,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "zwecks": 16
+      }
+    },
+    {
+      "rank": 82,
+      "lemma": "anstatt",
+      "frequency": 15,
+      "perMillionTokens": 2.36,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "anstatt": 15
+      }
+    },
+    {
+      "rank": 83,
+      "lemma": "nebst",
+      "frequency": 15,
+      "perMillionTokens": 2.36,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "nebst": 15
+      }
+    },
+    {
+      "rank": 84,
+      "lemma": "mitsamt",
+      "frequency": 13,
+      "perMillionTokens": 2.04,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "mitsamt": 13
+      }
+    },
+    {
+      "rank": 85,
+      "lemma": "welchen",
+      "frequency": 13,
+      "perMillionTokens": 2.04,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "welchen": 13
+      }
+    },
+    {
+      "rank": 86,
+      "lemma": "abzüglich",
+      "frequency": 12,
+      "perMillionTokens": 1.89,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "abzüglich": 12
+      }
+    },
+    {
+      "rank": 87,
+      "lemma": "mg",
+      "frequency": 12,
+      "perMillionTokens": 1.89,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "mg": 12
+      }
+    },
+    {
+      "rank": 88,
+      "lemma": "ob",
+      "frequency": 11,
+      "perMillionTokens": 1.73,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ob": 11
+      }
+    },
+    {
+      "rank": 89,
+      "lemma": "viii",
+      "frequency": 10,
+      "perMillionTokens": 1.57,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "viii": 10
+      }
+    },
+    {
+      "rank": 90,
+      "lemma": "zufolge",
+      "frequency": 10,
+      "perMillionTokens": 1.57,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "zufolge": 10
+      }
+    },
+    {
+      "rank": 91,
+      "lemma": "mangel",
+      "frequency": 7,
+      "perMillionTokens": 1.1,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "mangels": 7
+      }
+    },
+    {
+      "rank": 92,
+      "lemma": "heraus",
+      "frequency": 6,
+      "perMillionTokens": 0.94,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "heraus": 6
+      }
+    },
+    {
+      "rank": 93,
+      "lemma": "hinweg",
+      "frequency": 6,
+      "perMillionTokens": 0.94,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hinweg": 6
+      }
+    },
+    {
+      "rank": 94,
+      "lemma": "i",
+      "frequency": 6,
+      "perMillionTokens": 0.94,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "i": 6
+      }
+    },
+    {
+      "rank": 95,
+      "lemma": "infos",
+      "frequency": 6,
+      "perMillionTokens": 0.94,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "infos": 6
+      }
+    },
+    {
+      "rank": 96,
+      "lemma": "nah",
+      "frequency": 6,
+      "perMillionTokens": 0.94,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "nahe": 6
+      }
+    },
+    {
+      "rank": 97,
+      "lemma": "pia",
+      "frequency": 5,
+      "perMillionTokens": 0.79,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "pia": 5
+      }
+    },
+    {
+      "rank": 98,
+      "lemma": "seiten",
+      "frequency": 5,
+      "perMillionTokens": 0.79,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "seitens": 5
+      }
+    },
+    {
+      "rank": 99,
+      "lemma": "versus",
+      "frequency": 5,
+      "perMillionTokens": 0.79,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "versus": 5
+      }
+    },
+    {
+      "rank": 100,
+      "lemma": "viereinhalb",
+      "frequency": 5,
+      "perMillionTokens": 0.79,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "viereinhalb": 5
+      }
+    },
+    {
+      "rank": 101,
+      "lemma": "wozu",
+      "frequency": 5,
+      "perMillionTokens": 0.79,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "wozu": 5
+      }
+    },
+    {
+      "rank": 102,
+      "lemma": "achteinhalb",
+      "frequency": 4,
+      "perMillionTokens": 0.63,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "achteinhalb": 4
+      }
+    },
+    {
+      "rank": 103,
+      "lemma": "bog",
+      "frequency": 4,
+      "perMillionTokens": 0.63,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "bog": 4
+      }
+    },
+    {
+      "rank": 104,
+      "lemma": "diesseits",
+      "frequency": 4,
+      "perMillionTokens": 0.63,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "diesseits": 4
+      }
+    },
+    {
+      "rank": 105,
+      "lemma": "kraft",
+      "frequency": 4,
+      "perMillionTokens": 0.63,
+      "caseGroup": "genitive",
+      "note": "",
+      "surfaceForms": {
+        "kraft": 4
+      }
+    },
+    {
+      "rank": 106,
+      "lemma": "roy",
+      "frequency": 4,
+      "perMillionTokens": 0.63,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "roy": 4
+      }
+    },
+    {
+      "rank": 107,
+      "lemma": "handelsblatt",
+      "frequency": 3,
+      "perMillionTokens": 0.47,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "handelsblatt": 3
+      }
+    },
+    {
+      "rank": 108,
+      "lemma": "or",
+      "frequency": 3,
+      "perMillionTokens": 0.47,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "or": 3
+      }
+    },
+    {
+      "rank": 109,
+      "lemma": "qm",
+      "frequency": 3,
+      "perMillionTokens": 0.47,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "qm": 3
+      }
+    },
+    {
+      "rank": 110,
+      "lemma": "ran",
+      "frequency": 3,
+      "perMillionTokens": 0.47,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ran": 3
+      }
+    },
+    {
+      "rank": 111,
+      "lemma": "rapp",
+      "frequency": 3,
+      "perMillionTokens": 0.47,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "rapp": 3
+      }
+    },
+    {
+      "rank": 112,
+      "lemma": "analog",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "analog": 2
+      }
+    },
+    {
+      "rank": 113,
+      "lemma": "beidseits",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "beidseits": 2
+      }
+    },
+    {
+      "rank": 114,
+      "lemma": "bitte",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "bitte": 2
+      }
+    },
+    {
+      "rank": 115,
+      "lemma": "doofe",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "doofe": 2
+      }
+    },
+    {
+      "rank": 116,
+      "lemma": "fern",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "fern": 2
+      }
+    },
+    {
+      "rank": 117,
+      "lemma": "geradeaus",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "geradeaus": 2
+      }
+    },
+    {
+      "rank": 118,
+      "lemma": "gibts",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "gibts": 2
+      }
+    },
+    {
+      "rank": 119,
+      "lemma": "gw",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "gw": 2
+      }
+    },
+    {
+      "rank": 120,
+      "lemma": "helft",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "helft": 2
+      }
+    },
+    {
+      "rank": 121,
+      "lemma": "her",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "her": 2
+      }
+    },
+    {
+      "rank": 122,
+      "lemma": "hierbei",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hierbei": 2
+      }
+    },
+    {
+      "rank": 123,
+      "lemma": "hiermit",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hiermit": 2
+      }
+    },
+    {
+      "rank": 124,
+      "lemma": "irgendwann",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "irgendwann": 2
+      }
+    },
+    {
+      "rank": 125,
+      "lemma": "jag",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "jagen": 2
+      }
+    },
+    {
+      "rank": 126,
+      "lemma": "kontra",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "kontra": 2
+      }
+    },
+    {
+      "rank": 127,
+      "lemma": "mio",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "mio": 2
+      }
+    },
+    {
+      "rank": 128,
+      "lemma": "mitteilungsblatt",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "mitteilungsblatt": 2
+      }
+    },
+    {
+      "rank": 129,
+      "lemma": "non",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "non": 2
+      }
+    },
+    {
+      "rank": 130,
+      "lemma": "out",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "out": 2
+      }
+    },
+    {
+      "rank": 131,
+      "lemma": "solange",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "solange": 2
+      }
+    },
+    {
+      "rank": 132,
+      "lemma": "technik",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "technik": 2
+      }
+    },
+    {
+      "rank": 133,
+      "lemma": "vorverkauf",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "vorverkauf": 2
+      }
+    },
+    {
+      "rank": 134,
+      "lemma": "wohin",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "wohin": 2
+      }
+    },
+    {
+      "rank": 135,
+      "lemma": "zweck",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "zwecks": 2
+      }
+    },
+    {
+      "rank": 136,
+      "lemma": "öde",
+      "frequency": 2,
+      "perMillionTokens": 0.31,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "öde": 2
+      }
+    },
+    {
+      "rank": 137,
+      "lemma": "aandererseits",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "aandererseits": 1
+      }
+    },
+    {
+      "rank": 138,
+      "lemma": "alb",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "alb": 1
+      }
+    },
+    {
+      "rank": 139,
+      "lemma": "albis",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "albis": 1
+      }
+    },
+    {
+      "rank": 140,
+      "lemma": "alibis",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "alibis": 1
+      }
+    },
+    {
+      "rank": 141,
+      "lemma": "ammianus",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ammianus": 1
+      }
+    },
+    {
+      "rank": 142,
+      "lemma": "ang",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ang": 1
+      }
+    },
+    {
+      "rank": 143,
+      "lemma": "angeheuerter",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "angeheuerter": 1
+      }
+    },
+    {
+      "rank": 144,
+      "lemma": "ankündigungsblatt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ankündigungsblatt": 1
+      }
+    },
+    {
+      "rank": 145,
+      "lemma": "anschließende",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "anschließendes": 1
+      }
+    },
+    {
+      "rank": 146,
+      "lemma": "arbeitslosenzentrum",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "arbeitslosenzentrum": 1
+      }
+    },
+    {
+      "rank": 147,
+      "lemma": "arsenals",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "arsenals": 1
+      }
+    },
+    {
+      "rank": 148,
+      "lemma": "asb",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "asb": 1
+      }
+    },
+    {
+      "rank": 149,
+      "lemma": "ask",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ask": 1
+      }
+    },
+    {
+      "rank": 150,
+      "lemma": "atemlos",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "atemlos": 1
+      }
+    },
+    {
+      "rank": 151,
+      "lemma": "aufgemalt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "aufgemalt": 1
+      }
+    },
+    {
+      "rank": 152,
+      "lemma": "auftaktvon",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "auftaktvon": 1
+      }
+    },
+    {
+      "rank": 153,
+      "lemma": "bams",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "bams": 1
+      }
+    },
+    {
+      "rank": 154,
+      "lemma": "bas",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "bas": 1
+      }
+    },
+    {
+      "rank": 155,
+      "lemma": "befestigungauf",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "befestigungauf": 1
+      }
+    },
+    {
+      "rank": 156,
+      "lemma": "bestattungshaus",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "bestattungshaus": 1
+      }
+    },
+    {
+      "rank": 157,
+      "lemma": "bietigheim",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "bietigheim": 1
+      }
+    },
+    {
+      "rank": 158,
+      "lemma": "blühendem",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "blühendem": 1
+      }
+    },
+    {
+      "rank": 159,
+      "lemma": "deaf",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "deaf": 1
+      }
+    },
+    {
+      "rank": 160,
+      "lemma": "dj",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "dj": 1
+      }
+    },
+    {
+      "rank": 161,
+      "lemma": "ds",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ds": 1
+      }
+    },
+    {
+      "rank": 162,
+      "lemma": "duzum",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "duzum": 1
+      }
+    },
+    {
+      "rank": 163,
+      "lemma": "easy",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "easy": 1
+      }
+    },
+    {
+      "rank": 164,
+      "lemma": "eccetto",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "eccetto": 1
+      }
+    },
+    {
+      "rank": 165,
+      "lemma": "entwich",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "entwich": 1
+      }
+    },
+    {
+      "rank": 166,
+      "lemma": "etmeyecek",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "etmeyecek": 1
+      }
+    },
+    {
+      "rank": 167,
+      "lemma": "euroairport",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "euroairport": 1
+      }
+    },
+    {
+      "rank": 168,
+      "lemma": "evi",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "evi": 1
+      }
+    },
+    {
+      "rank": 169,
+      "lemma": "ewt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ewt": 1
+      }
+    },
+    {
+      "rank": 170,
+      "lemma": "explizit",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "explizit": 1
+      }
+    },
+    {
+      "rank": 171,
+      "lemma": "extra",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "extra": 1
+      }
+    },
+    {
+      "rank": 172,
+      "lemma": "fachwerkhaus",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "fachwerkhaus": 1
+      }
+    },
+    {
+      "rank": 173,
+      "lemma": "faszinierendem",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "faszinierendem": 1
+      }
+    },
+    {
+      "rank": 174,
+      "lemma": "feinst",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "feinster": 1
+      }
+    },
+    {
+      "rank": 175,
+      "lemma": "foot",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "foot": 1
+      }
+    },
+    {
+      "rank": 176,
+      "lemma": "fraßbild",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "fraßbild": 1
+      }
+    },
+    {
+      "rank": 177,
+      "lemma": "gabis",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "gabis": 1
+      }
+    },
+    {
+      "rank": 178,
+      "lemma": "gehts",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "gehts": 1
+      }
+    },
+    {
+      "rank": 179,
+      "lemma": "geiger",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "geigers": 1
+      }
+    },
+    {
+      "rank": 180,
+      "lemma": "gemeindeblatt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "gemeindeblatt": 1
+      }
+    },
+    {
+      "rank": 181,
+      "lemma": "genoss",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "genoss": 1
+      }
+    },
+    {
+      "rank": 182,
+      "lemma": "grenzach",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "grenzach": 1
+      }
+    },
+    {
+      "rank": 183,
+      "lemma": "gret",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "gret": 1
+      }
+    },
+    {
+      "rank": 184,
+      "lemma": "gt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "gt": 1
+      }
+    },
+    {
+      "rank": 185,
+      "lemma": "gäben",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "gäben": 1
+      }
+    },
+    {
+      "rank": 186,
+      "lemma": "heimstatt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "heimstatt": 1
+      }
+    },
+    {
+      "rank": 187,
+      "lemma": "heiterm",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "heiterm": 1
+      }
+    },
+    {
+      "rank": 188,
+      "lemma": "herum",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "herum": 1
+      }
+    },
+    {
+      "rank": 189,
+      "lemma": "hiefür",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hiefür": 1
+      }
+    },
+    {
+      "rank": 190,
+      "lemma": "hiervon",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hiervon": 1
+      }
+    },
+    {
+      "rank": 191,
+      "lemma": "hierüber",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hierüber": 1
+      }
+    },
+    {
+      "rank": 192,
+      "lemma": "hin",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hin": 1
+      }
+    },
+    {
+      "rank": 193,
+      "lemma": "hinein",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hinein": 1
+      }
+    },
+    {
+      "rank": 194,
+      "lemma": "hobby",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hobby": 1
+      }
+    },
+    {
+      "rank": 195,
+      "lemma": "hs",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "hs": 1
+      }
+    },
+    {
+      "rank": 196,
+      "lemma": "ifa",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ifa": 1
+      }
+    },
+    {
+      "rank": 197,
+      "lemma": "ihlpohl",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ihlpohl": 1
+      }
+    },
+    {
+      "rank": 198,
+      "lemma": "immernoch",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "immernoch": 1
+      }
+    },
+    {
+      "rank": 199,
+      "lemma": "immobilie",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "immobilie": 1
+      }
+    },
+    {
+      "rank": 200,
+      "lemma": "inhaltsangabebei",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "inhaltsangabebei": 1
+      }
+    },
+    {
+      "rank": 201,
+      "lemma": "interprofil",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "interprofil": 1
+      }
+    },
+    {
+      "rank": 202,
+      "lemma": "ise",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ise": 1
+      }
+    },
+    {
+      "rank": 203,
+      "lemma": "isteinfach",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "isteinfach": 1
+      }
+    },
+    {
+      "rank": 204,
+      "lemma": "jos",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "jos": 1
+      }
+    },
+    {
+      "rank": 205,
+      "lemma": "kartenkauf",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "kartenkauf": 1
+      }
+    },
+    {
+      "rank": 206,
+      "lemma": "kg",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "kg": 1
+      }
+    },
+    {
+      "rank": 207,
+      "lemma": "kleeblatt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "kleeblatt": 1
+      }
+    },
+    {
+      "rank": 208,
+      "lemma": "kontodirekt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "kontodirekt": 1
+      }
+    },
+    {
+      "rank": 209,
+      "lemma": "kraaha",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "kraaha": 1
+      }
+    },
+    {
+      "rank": 210,
+      "lemma": "lao",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "lao": 1
+      }
+    },
+    {
+      "rank": 211,
+      "lemma": "lichtmaus",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "lichtmaus": 1
+      }
+    },
+    {
+      "rank": 212,
+      "lemma": "los",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "los": 1
+      }
+    },
+    {
+      "rank": 213,
+      "lemma": "lse",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "lsen": 1
+      }
+    },
+    {
+      "rank": 214,
+      "lemma": "machts",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "machts": 1
+      }
+    },
+    {
+      "rank": 215,
+      "lemma": "mcgee",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "mcgee": 1
+      }
+    },
+    {
+      "rank": 216,
+      "lemma": "mitgliedsbeiträgedem",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "mitgliedsbeiträgedem": 1
+      }
+    },
+    {
+      "rank": 217,
+      "lemma": "moselpromenade",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "moselpromenade": 1
+      }
+    },
+    {
+      "rank": 218,
+      "lemma": "nachrichtenblatt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "nachrichtenblatt": 1
+      }
+    },
+    {
+      "rank": 219,
+      "lemma": "naturgemäß",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "naturgemäß": 1
+      }
+    },
+    {
+      "rank": 220,
+      "lemma": "nelly",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "nelly": 1
+      }
+    },
+    {
+      "rank": 221,
+      "lemma": "nießen",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "nießen": 1
+      }
+    },
+    {
+      "rank": 222,
+      "lemma": "obs",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "obs": 1
+      }
+    },
+    {
+      "rank": 223,
+      "lemma": "od",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "od": 1
+      }
+    },
+    {
+      "rank": 224,
+      "lemma": "off",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "off": 1
+      }
+    },
+    {
+      "rank": 225,
+      "lemma": "oslee",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "oslee": 1
+      }
+    },
+    {
+      "rank": 226,
+      "lemma": "ou",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ou": 1
+      }
+    },
+    {
+      "rank": 227,
+      "lemma": "paddyther",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "paddytherm": 1
+      }
+    },
+    {
+      "rank": 228,
+      "lemma": "pflichtblatt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "pflichtblatt": 1
+      }
+    },
+    {
+      "rank": 229,
+      "lemma": "portrait",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "portraits": 1
+      }
+    },
+    {
+      "rank": 230,
+      "lemma": "python",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "python": 1
+      }
+    },
+    {
+      "rank": 231,
+      "lemma": "radeaus",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "geradeaus": 1
+      }
+    },
+    {
+      "rank": 232,
+      "lemma": "re",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "re": 1
+      }
+    },
+    {
+      "rank": 233,
+      "lemma": "regelmäß",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "regelmäß": 1
+      }
+    },
+    {
+      "rank": 234,
+      "lemma": "richtung",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "richtung": 1
+      }
+    },
+    {
+      "rank": 235,
+      "lemma": "ru",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ru": 1
+      }
+    },
+    {
+      "rank": 236,
+      "lemma": "rum",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "rum": 1
+      }
+    },
+    {
+      "rank": 237,
+      "lemma": "s",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "s": 1
+      }
+    },
+    {
+      "rank": 238,
+      "lemma": "schlimmst",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "schlimmster": 1
+      }
+    },
+    {
+      "rank": 239,
+      "lemma": "schubst",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "schubst": 1
+      }
+    },
+    {
+      "rank": 240,
+      "lemma": "schwerpunktmäßig",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "schwerpunktmäßig": 1
+      }
+    },
+    {
+      "rank": 241,
+      "lemma": "se",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "se": 1
+      }
+    },
+    {
+      "rank": 242,
+      "lemma": "seid",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "seid": 1
+      }
+    },
+    {
+      "rank": 243,
+      "lemma": "sk",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "sk": 1
+      }
+    },
+    {
+      "rank": 244,
+      "lemma": "spandau",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "spandau": 1
+      }
+    },
+    {
+      "rank": 245,
+      "lemma": "stiftungsfest",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "stiftungsfests": 1
+      }
+    },
+    {
+      "rank": 246,
+      "lemma": "sz",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "sz": 1
+      }
+    },
+    {
+      "rank": 247,
+      "lemma": "tageblatt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "tageblatt": 1
+      }
+    },
+    {
+      "rank": 248,
+      "lemma": "u",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "u": 1
+      }
+    },
+    {
+      "rank": 249,
+      "lemma": "unerl",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "unerl": 1
+      }
+    },
+    {
+      "rank": 250,
+      "lemma": "unsers",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "unsers": 1
+      }
+    },
+    {
+      "rank": 251,
+      "lemma": "unsicher",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "unsicherm": 1
+      }
+    },
+    {
+      "rank": 252,
+      "lemma": "vanwaar",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "vanwaar": 1
+      }
+    },
+    {
+      "rank": 253,
+      "lemma": "verbrkrg",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "verbrkrg": 1
+      }
+    },
+    {
+      "rank": 254,
+      "lemma": "verdarben",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "verdarben": 1
+      }
+    },
+    {
+      "rank": 255,
+      "lemma": "verkörper",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "verkörper": 1
+      }
+    },
+    {
+      "rank": 256,
+      "lemma": "vermittlungsleistungen",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "vermittlungsleistungen": 1
+      }
+    },
+    {
+      "rank": 257,
+      "lemma": "vf",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "vf": 1
+      }
+    },
+    {
+      "rank": 258,
+      "lemma": "vierstöckigen",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "vierstöckigen": 1
+      }
+    },
+    {
+      "rank": 259,
+      "lemma": "vinytherm",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "vinytherm": 1
+      }
+    },
+    {
+      "rank": 260,
+      "lemma": "volle",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "voller": 1
+      }
+    },
+    {
+      "rank": 261,
+      "lemma": "voran",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "voran": 1
+      }
+    },
+    {
+      "rank": 262,
+      "lemma": "voraus",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "voraus": 1
+      }
+    },
+    {
+      "rank": 263,
+      "lemma": "warum",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "warum": 1
+      }
+    },
+    {
+      "rank": 264,
+      "lemma": "weafer",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "weafer": 1
+      }
+    },
+    {
+      "rank": 265,
+      "lemma": "weil",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "weil": 1
+      }
+    },
+    {
+      "rank": 266,
+      "lemma": "wenigsten",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "wenigsten": 1
+      }
+    },
+    {
+      "rank": 267,
+      "lemma": "werstatt",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "werstatt": 1
+      }
+    },
+    {
+      "rank": 268,
+      "lemma": "wieter",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "wieter": 1
+      }
+    },
+    {
+      "rank": 269,
+      "lemma": "witte",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "witte": 1
+      }
+    },
+    {
+      "rank": 270,
+      "lemma": "zillies",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "zillies": 1
+      }
+    },
+    {
+      "rank": 271,
+      "lemma": "zv",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "zv": 1
+      }
+    },
+    {
+      "rank": 272,
+      "lemma": "ím",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ím": 1
+      }
+    },
+    {
+      "rank": 273,
+      "lemma": "íst",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "íst": 1
+      }
+    },
+    {
+      "rank": 274,
+      "lemma": "überstiegen",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "überstiegen": 1
+      }
+    },
+    {
+      "rank": 275,
+      "lemma": "übrig",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "übrig": 1
+      }
+    },
+    {
+      "rank": 276,
+      "lemma": "ümit",
+      "frequency": 1,
+      "perMillionTokens": 0.16,
+      "caseGroup": "unclassified",
+      "note": "",
+      "surfaceForms": {
+        "ümit": 1
+      }
+    }
+  ]
+}

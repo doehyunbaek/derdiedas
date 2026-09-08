@@ -461,6 +461,7 @@
     <button class="active" id="nouns-tab" type="button" role="tab" aria-selected="true" aria-controls="nouns-view" data-view="nouns">Nomen <span class="tab-total">10,000</span></button>
     <button id="verbs-tab" type="button" role="tab" aria-selected="false" aria-controls="verbs-view" data-view="verbs">Verben <span class="tab-total">10,000</span></button>
     <button id="aux-tab" type="button" role="tab" aria-selected="false" aria-controls="aux-view" data-view="aux">Hilfsverben <span class="tab-total">9</span></button>
+    <button id="prepositions-tab" type="button" role="tab" aria-selected="false" aria-controls="prepositions-view" data-view="prepositions">Präpositionen <span class="tab-total" id="prepositions-total"></span></button>
   </nav>
 
   <div id="nouns-view" role="tabpanel" aria-labelledby="nouns-tab">
@@ -775,6 +776,25 @@
     </main>
   </div>
 
+  <div id="prepositions-view" role="tabpanel" aria-labelledby="prepositions-tab" hidden>
+    <header>
+      <div>
+        <h1 class="aux-title">Präpositionen</h1>
+      </div>
+      <div class="controls">
+        <div class="cefr-controls" role="group" aria-label="Preposition usage level"><button class="active" type="button" aria-pressed="true">A1</button></div>
+        <label for="preposition-search">Find a preposition · plain text</label>
+        <input id="preposition-search" type="search" placeholder="Try in, Dativ, or Wann" autocomplete="off" spellcheck="false">
+      </div>
+    </header>
+    <main>
+      <p id="preposition-status" role="status">Loading prepositions…</p>
+      <article class="aux-document">
+        <div class="verb-guide" id="preposition-cards"></div>
+      </article>
+    </main>
+  </div>
+
   <script>
     const genders = {
       m: { list: document.querySelector('#m-list'), count: document.querySelector('#m-count') },
@@ -811,7 +831,8 @@
     const views = {
       nouns: document.querySelector('#nouns-view'),
       verbs: document.querySelector('#verbs-view'),
-      aux: document.querySelector('#aux-view')
+      aux: document.querySelector('#aux-view'),
+      prepositions: document.querySelector('#prepositions-view')
     };
     const viewButtons = [...document.querySelectorAll('[data-view]')];
     const conjugationToggle = document.querySelector('#conjugation-toggle');
@@ -865,6 +886,57 @@
       '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
     })[char]);
 
+    const prepositionSearch = document.querySelector('#preposition-search');
+    const prepositionStatus = document.querySelector('#preposition-status');
+    let prepositions = [];
+    let prepositionSections = [];
+    function renderPrepositions() {
+      const query = prepositionSearch.value.trim().toLocaleLowerCase('de');
+      const matchedLemmas = new Set();
+      document.querySelector('#preposition-cards').innerHTML = prepositionSections.map(section => {
+        const matches = prepositions.filter(item => section.uses[item.lemma]).map((item, index) => ({
+          ...item, number: index + 1, uses: section.uses[item.lemma].map(index => item.uses[index])
+        })).filter(item => [section.title, item.lemma, item.meaning, item.contraction || '', ...item.uses.flat()]
+          .join(' ').toLocaleLowerCase('de').includes(query));
+        matches.forEach(item => matchedLemmas.add(item.lemma));
+        if (!matches.length) return '';
+        return `<section aria-labelledby="prepositions-${section.id}">
+          <h2 id="prepositions-${section.id}">${escapeHtml(section.title)}</h2>
+          <div class="verb-guide">${matches.map(item => `
+        <section class="verb-card">
+          <span class="verb-number">${String(item.number).padStart(2, '0')} · ${escapeHtml(item.meaning)}</span>
+          <h2>${escapeHtml(item.lemma)}</h2>
+          ${item.uses.map(([pattern, explanation, example, translation]) => `
+            <div class="usage">
+              <p class="construction"><strong>${escapeHtml(pattern)}</strong> · ${escapeHtml(explanation)}</p>
+              <p class="example"><strong>${escapeHtml(example)}</strong><span class="translation">${escapeHtml(translation)}</span></p>
+            </div>`).join('')}
+          ${item.contraction ? `<p class="construction"><strong>Kurzform</strong> · ${escapeHtml(item.contraction)}</p>` : ''}
+        </section>`).join('')}</div></section>`;
+      }).join('');
+      prepositionStatus.textContent = `${matchedLemmas.size} of ${prepositions.length} A1 prepositions.`;
+    }
+    prepositionSearch.addEventListener('input', renderPrepositions);
+    Promise.all(['./data/prepositions-a1.json', './data/german-prepositions.json'].map(url =>
+      fetch(url).then(response => {
+        if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
+        return response.json();
+      })
+    ))
+      .then(([data, corpus]) => {
+        prepositionSections = data.sections;
+        const frequencies = new Map(corpus.prepositions.map(item => [item.lemma, item.frequency]));
+        prepositions = [...data.prepositions].sort((a, b) =>
+          (frequencies.get(b.lemma) ?? 0) - (frequencies.get(a.lemma) ?? 0)
+          || a.lemma.localeCompare(b.lemma, 'de'));
+        document.querySelector('#prepositions-total').textContent = number.format(prepositions.length);
+        renderPrepositions();
+      })
+      .catch(error => {
+        prepositionStatus.textContent = 'Could not load the A1 preposition cards or Leipzig frequencies. Please serve this directory over HTTP and reload.';
+        console.error(error);
+      });
+
     function classifyPlural(singular, plural) {
       singular = singular.toLocaleLowerCase('de');
       plural = plural.toLocaleLowerCase('de');
@@ -878,14 +950,16 @@
     }
 
     function setView(view, updateUrl = true) {
-      const selected = ['verbs', 'aux'].includes(view) ? view : 'nouns';
+      const selected = ['verbs', 'aux', 'prepositions'].includes(view) ? view : 'nouns';
       for (const [name, panel] of Object.entries(views)) panel.hidden = name !== selected;
       viewButtons.forEach(button => {
         const active = button.dataset.view === selected;
         button.classList.toggle('active', active);
         button.setAttribute('aria-selected', active);
       });
-      document.title = selected === 'aux'
+      document.title = selected === 'prepositions'
+        ? 'Präpositionen — German Prepositions'
+        : selected === 'aux'
         ? 'Hilfsverben — German Auxiliary Verbs'
         : selected === 'verbs'
           ? 'Verben — German Verbs'
@@ -1136,7 +1210,7 @@
     verbSearch.value = initialParams.get('verb-q') || '';
     setView(initialParams.get('view'), false);
 
-    fetch('./goethe-cefr-levels.json')
+    fetch('./data/goethe-cefr-levels.json')
       .then(response => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();
@@ -1148,7 +1222,7 @@
       })
       .catch(error => console.error('Could not load Goethe CEFR levels:', error));
 
-    fetch('./german-nouns.json?v=4')
+    fetch('./data/german-nouns.json?v=4')
       .then(response => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();
@@ -1164,7 +1238,7 @@
         status.innerHTML = `Could not load the noun data.<br><small>${escapeHtml(error.message)} — serve this directory through a local web server instead of opening the file directly.</small>`;
       });
 
-    fetch('./german-verbs.json?v=4')
+    fetch('./data/german-verbs.json?v=4')
       .then(response => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();

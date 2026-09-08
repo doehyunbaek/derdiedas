@@ -1,13 +1,18 @@
-#!/usr/bin/env python3
-"""Generate and validate German conjugation metadata against Wiktionary.
+"""Offline regression suite and opt-in Wiktionary conjugation validation.
 
-This module provides weak-conjugation rules plus validation helpers for weak
-and strong verbs. Source wikitext is cached under .cache/wiktionary so repeated
-checks are gentle on the API.
+uv run python test.py
+uv run python test.py weak-conjugations --level A1
 """
-
+from argparse import ArgumentParser
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 import json
+import sys
+import tempfile
+import unittest
+
+import build_datasets as builder
 import random
 import re
 import time
@@ -15,7 +20,229 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+def token(text, lemma, pos, tag, alpha=True):
+    return SimpleNamespace(text=text, lemma_=lemma, pos_=pos, tag_=tag, is_alpha=alpha)
+
+
+class DatasetTests(unittest.TestCase):
+    def test_single_stream_collects_all_classes(self):
+        documents = iter([
+            [token("Häuser", "haus", "NOUN", "NN"), token("ist", "sein", "AUX", "VAFIN"),
+             token("im", "in", "ADP", "APPRART"), token(".", ".", "PUNCT", "$.", False)],
+            [token("steht", "stehen", "VERB", "VVFIN"), token("auf", "auf", "ADP", "PTKVZ"),
+             token("auf", "auf", "ADP", "APPR"), token("bis", "bis", "SCONJ", "KOUS")],
+        ])
+        data = builder.count_documents(documents, "test", "test")
+        self.assertEqual(data["nouns"], {"Haus": 1})
+        self.assertEqual(data["verbs"], {"sein": 1, "stehen": 1})
+        adp = data["prepositions"]
+        self.assertEqual(adp["counts"], {"in": 1, "auf": 1})
+        self.assertEqual(adp["surfaceForms"]["in"], {"im": 1})
+        self.assertEqual(adp["excludedUses"]["auf"], {"ADP/PTKVZ": 1})
+        self.assertEqual(adp["excludedUses"]["bis"], {"SCONJ/KOUS": 1})
+        self.assertEqual(adp["sentences"], 2)
+        self.assertEqual(adp["alphabeticTokens"], 7)
+
+    def test_shared_cache_needs_no_spacy(self):
+        data = {"schemaVersion": builder.SCHEMA_VERSION, "nouns": {}, "verbs": {}, "prepositions": {}}
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "counts.json"
+            path.write_text(json.dumps(data))
+            with patch.object(builder, "COUNTS", path):
+                self.assertEqual(builder.build_counts(), data)
+                self.assertEqual(builder.selected_counts(("verbs",)), {"verbs": {}})
+
+    def test_missing_legacy_inventory_builds_once(self):
+        data = {"nouns": {"Haus": 1}, "verbs": {}, "prepositions": {}}
+        with patch.object(builder, "load_shared_counts", return_value=None), \
+             patch.object(builder, "legacy_counts", side_effect=[None, {}, {}]), \
+             patch.object(builder, "build_counts", return_value=data) as build:
+            self.assertEqual(builder.selected_counts(tuple(data)), data)
+            build.assert_called_once_with()
+
+    def test_legacy_counts_reused_without_tagging(self):
+        with patch.object(builder, "load_shared_counts", return_value=None), \
+             patch.object(builder, "legacy_counts", return_value={"gehen": 2}), \
+             patch.object(builder, "build_counts") as build:
+            self.assertEqual(builder.selected_counts(("verbs",)), {"verbs": {"gehen": 2}})
+            build.assert_not_called()
+
+    def test_recount_bypasses_existing_counts(self):
+        with patch.object(builder, "build_counts", return_value={"nouns": {}}) as build, \
+             patch.object(builder, "legacy_counts") as legacy:
+            self.assertEqual(builder.selected_counts(("nouns",), recount=True), {"nouns": {}})
+            build.assert_called_once_with(recount=True)
+            legacy.assert_not_called()
+
+    def test_export_only_requested_kind(self):
+        with patch.object(builder, "selected_counts", return_value={"prepositions": {"test": 1}}) as counts, \
+             patch.object(builder, "export_prepositions") as export:
+            builder.main(["prepositions"])
+            counts.assert_called_once_with(("prepositions",), False)
+            export.assert_called_once_with({"test": 1})
+
+
+class PrepositionTests(unittest.TestCase):
+    def test_contractions(self):
+        for surface, expected in builder.CONTRACTIONS.items():
+            self.assertEqual(builder.normalize_preposition(SimpleNamespace(text=surface.capitalize(), lemma_=surface)), expected)
+
+    def test_lemma_normalization(self):
+        self.assertEqual(builder.normalize_preposition(SimpleNamespace(text="Nach", lemma_="nach")), "nach")
+
+    def test_pos_and_particle_separation(self):
+        for pos, tag, expected in [("ADP", "APPR", True), ("ADP", "APPRART", True), ("ADP", "APPO", True), ("ADP", "PTKVZ", False), ("PART", "PTKVZ", False), ("SCONJ", "KOUS", False)]:
+            self.assertEqual(builder.is_preposition(SimpleNamespace(pos_=pos, tag_=tag)), expected)
+
+    def test_groups(self):
+        for lemma, group in {"in": "two-way", "auf": "two-way", "nach": "dative", "bei": "dative", "bis": "accusative", "wegen": "genitive"}.items():
+            self.assertEqual(builder.CASE_BY_LEMMA[lemma], group)
+
+    def test_export(self):
+        data = {
+            "model": "test", "spacyVersion": "test", "sentences": 3,
+            "alphabeticTokens": 20, "counts": {"in": 4, "bei": 2, "zzz": 1},
+            "surfaceForms": {"in": {"in": 2, "im": 2}, "bei": {"beim": 2}, "zzz": {"zzz": 1}},
+            "excludedUses": {"auf": {"ADP/PTKVZ": 1, "PART/PTKVZ": 2}},
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            with patch.object(builder, "DATA", root):
+                builder.export_prepositions(data)
+            output = json.loads((root / "german-prepositions.json").read_text())
+            self.assertEqual([item["rank"] for item in output["prepositions"]], [1, 2, 3])
+            self.assertEqual(output["prepositions"][0]["frequency"], 4)
+            self.assertEqual(output["prepositions"][0]["perMillionTokens"], 200000)
+            self.assertEqual(output["prepositions"][2]["caseGroup"], "unclassified")
+            self.assertEqual(output["excludedUses"], data["excludedUses"])
+
+
+class SourceAndNounTests(unittest.TestCase):
+    def test_download_reuses_existing_file(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "source.gz"
+            path.write_bytes(b"cached")
+            with patch.object(builder.urllib.request, "urlretrieve") as fetch:
+                self.assertEqual(builder.download("https://example.invalid/source", path), path)
+                fetch.assert_not_called()
+
+    def test_failed_download_is_not_published(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "source.gz"
+            with patch.object(builder.urllib.request, "urlretrieve", side_effect=OSError("failed")):
+                with self.assertRaises(OSError):
+                    builder.download("https://example.invalid/source", path)
+            self.assertEqual(list(Path(directory).iterdir()), [])
+
+    def test_explicit_dictionary_formats(self):
+        with tempfile.TemporaryDirectory() as directory:
+            for name in ("dictionary.jsonl", "dictionary.jsonl.gz"):
+                path = Path(directory) / name
+                text = '{"word": "Haus"}\n'
+                if name.endswith(".gz"):
+                    with builder.gzip.open(path, "wt", encoding="utf-8") as output:
+                        output.write(text)
+                else:
+                    path.write_text(text)
+                with builder.open_dictionary(path) as source:
+                    self.assertEqual(source.read(), text)
+
+    def test_gender_and_plural_rules(self):
+        self.assertEqual(builder.direct_genders({"senses": [{"tags": ["feminine"]}, {"tags": ["form-of", "neuter"]}]}), {"feminine"})
+        noun = {"lemma": "Bank"}
+        builder.apply_plural_overrides([noun])
+        self.assertEqual(noun["plurals"], ["Banken", "Bänke"])
+        self.assertEqual(noun["pluralClasses"], ["en", "e"])
+
+    def test_download_command_does_not_tag(self):
+        with patch.object(builder, "ensure_corpus", return_value="sentences.txt") as corpus, \
+             patch.object(builder, "download", return_value="dictionary.gz") as download, \
+             patch.object(builder, "selected_counts") as counts:
+            builder.main(["download"])
+            corpus.assert_called_once_with()
+            download.assert_called_once_with(builder.KAIKKI_URL, builder.KAIKKI)
+            counts.assert_not_called()
+
+    def test_plural_command_dispatch(self):
+        with patch.object(builder, "enrich_noun_plurals") as enrich:
+            builder.main(["plurals", "--refresh-plurals"])
+            enrich.assert_called_once_with(None, True)
+
+
 ROOT = Path(__file__).resolve().parent
+VERBS_FILE = ROOT / "data" / "german-verbs.json"
+CEFR_FILE = ROOT / "data" / "goethe-cefr-levels.json"
+STATUSES = ("pass", "mismatch", "source-unavailable")
+
+
+def run_weak_conjugations(argv=None):
+    parser = ArgumentParser()
+    parser.add_argument("--level", default="A1", choices=("A1", "A2", "B1"))
+    parser.add_argument("--refresh", action="store_true")
+    parser.add_argument(
+        "--request-delay",
+        type=float,
+        default=1.0,
+        help="minimum seconds between Wiktionary requests (default: 1.0)",
+    )
+    parser.add_argument("--max-retries", type=int, default=7)
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args(argv)
+
+    verbs = [
+        verb for verb in json.loads(VERBS_FILE.read_text(encoding="utf-8"))["verbs"]
+        if verb.get("rank") is not None and verb["rank"] <= 10_000
+    ]
+    levels = json.loads(CEFR_FILE.read_text(encoding="utf-8"))["verbs"]
+    selected = [
+        verb
+        for verb in verbs
+        if verb["class"] == "weak" and levels.get(verb["lemma"]) == args.level
+    ]
+    entries = [
+        validate(
+            verb["lemma"],
+            verb["rank"],
+            args.refresh,
+            max(0.5, args.request_delay),
+            args.max_retries,
+        )
+        for verb in selected
+    ]
+    summary = {
+        status: sum(entry["status"] == status for entry in entries)
+        for status in STATUSES
+    }
+    report = {
+        "level": args.level,
+        "scope": "earliest Goethe level, top 10,000 weak verbs in german-verbs.json",
+        "externalSource": "German Wiktionary, Deutsch Verb Übersicht",
+        "checked": len(entries),
+        "summary": summary,
+        "entries": entries,
+    }
+    output = args.output or (
+        Path(tempfile.gettempdir())
+        / "derdiedas"
+        / f"weak-conjugation-{args.level.lower()}-report.json"
+    )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    print(f"Checked {len(entries)} {args.level} weak verbs: " + ", ".join(
+        f"{count} {status}" for status, count in summary.items()
+    ))
+    print(f"Wrote {output}")
+    for entry in entries:
+        if entry["status"] in {"mismatch", "source-unavailable"}:
+            print(f"{entry['status']}: {entry['lemma']} {entry['mismatches']}")
+
+
+# --- Conjugation rules and cached Wiktionary validation ---
+
 CACHE = ROOT / ".cache" / "wiktionary"
 API = "https://de.wiktionary.org/w/api.php"
 PERSONS = ("ich", "du", "er/sie/es", "wir", "ihr", "sie/Sie")
@@ -354,3 +581,10 @@ def inserts_e(stem):
     return stem.endswith(("d", "t")) or bool(
         re.search(r"[^aeiouäöüyhlr][mn]$", stem)
     )
+
+
+if __name__ == "__main__":
+    if sys.argv[1:2] == ["weak-conjugations"]:
+        run_weak_conjugations(sys.argv[2:])
+    else:
+        unittest.main()

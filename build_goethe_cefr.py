@@ -13,7 +13,7 @@ import subprocess
 import tempfile
 import urllib.request
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent / "data"
 OUTPUT = ROOT / "goethe-cefr-levels.json"
 SOURCES = {
     "A1": "https://www.goethe.de/pro/relaunch/prf/de/A1_SD1_Wortliste_02.pdf",

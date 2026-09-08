@@ -1,0 +1,33 @@
+{
+  "level": "A1",
+  "source": "Spektrum Deutsch A1+, Übersicht zu den Strukturen, printed pp. 268–269 (PDF pp. 270–271)",
+  "scope": "Selected uses in the book's preposition summary, not every meaning of each preposition. Explanations, examples, and translations are newly written for this reference.",
+  "sections": [
+    {"id":"time","title":"Zeit · Time","uses":{"um":[0],"an":[0],"in":[0],"vor":[0],"nach":[0],"zwischen":[0],"von":[0],"bis":[0],"seit":[0]}},
+    {"id":"location","title":"Ort & Richtung · Location & direction","uses":{"an":[1,2],"in":[1,2],"vor":[1],"nach":[1,2],"zwischen":[1],"auf":[0,1],"aus":[0],"zu":[0],"bei":[0],"hinter":[0],"neben":[0],"über":[0],"unter":[0]}},
+    {"id":"other","title":"Weitere Angaben · Other uses","uses":{"von":[1],"mit":[0],"für":[0],"gegen":[0],"ohne":[0]}}
+  ],
+  "prepositions": [
+    {"lemma":"um","meaning":"at · time","pages":"268","uses":[["um + Akkusativ · Wann?","Use for a clock time.","Der Film beginnt um acht Uhr.","The film starts at eight o’clock."]]},
+    {"lemma":"an","meaning":"on · at · to","pages":"268–269","contraction":"an dem → am","uses":[["an + Dativ · Wann?","Use for days and parts of the day.","Wir lernen am Dienstag und am Abend.","We study on Tuesday and in the evening."],["an + Akkusativ · Wohin?","A destination by water.","Wir fahren an den See.","We are going to the lake."],["an + Dativ · Wo?","A position at or by something.","Der Stuhl steht am Fenster.","The chair is by the window."]]},
+    {"lemma":"in","meaning":"in · into","pages":"268–269","contraction":"in dem → im","uses":[["in + Dativ · Wann?","Use for months, seasons, and the expression im Moment.","Im Sommer habe ich Urlaub.","I have time off in summer."],["in + Akkusativ · Wohin?","Going into a place, or to a country with an article.","Wir fahren in die Schweiz.","We are going to Switzerland."],["in + Dativ · Wo?","Being or doing something inside a place.","Ich lese in der Küche.","I am reading in the kitchen."]]},
+    {"lemma":"vor","meaning":"before · in front of","pages":"268–269","uses":[["vor + Dativ · Wann?","Before an event or activity.","Vor dem Kurs trinke ich Tee.","I drink tea before the class."],["vor + Dativ · Wo?","A position in front of something.","Das Fahrrad steht vor dem Haus.","The bicycle is in front of the house."]]},
+    {"lemma":"nach","meaning":"after · to","pages":"268–269","uses":[["nach + Dativ · Wann?","After an event or activity.","Nach der Arbeit koche ich.","I cook after work."],["nach + Dativ · Wohin?","Use with cities and countries without an article; also nach Hause.","Morgen fahren wir nach Wien.","Tomorrow we are going to Vienna."],["nach Hause · Wohin?","Going home.","Ich gehe jetzt nach Hause.","I am going home now."]]},
+    {"lemma":"zwischen","meaning":"between","pages":"268–269","uses":[["zwischen + Dativ · Wann?","A time within two limits.","Ich komme zwischen zwei und drei Uhr.","I will come between two and three o’clock."],["zwischen + Dativ · Wo?","A position between two things.","Die Lampe steht zwischen dem Bett und dem Schrank.","The lamp is between the bed and the wardrobe."]]},
+    {"lemma":"von","meaning":"from · of","pages":"269","contraction":"von dem → vom","uses":[["von + Dativ … bis · Wie lange?","The starting point of a time range; bis gives its end.","Ich arbeite von neun bis fünf Uhr.","I work from nine to five."],["von + Dativ · Wessen?","Say who something belongs to.","Das ist die Tasche von meiner Schwester.","That is my sister’s bag."]]},
+    {"lemma":"bis","meaning":"until · to","pages":"269","uses":[["bis + Akkusativ · Wie lange?","The endpoint of a time range, often paired with von. Clock times do not visibly show the case.","Der Kurs dauert von zehn bis zwölf Uhr.","The class runs from ten until twelve o’clock."]]},
+    {"lemma":"seit","meaning":"since · for","pages":"269","uses":[["seit + Dativ · Wie lange?","Something began in the past and is still true; German uses the present tense here.","Ich wohne seit einem Jahr in Bonn.","I have been living in Bonn for a year."]]},
+    {"lemma":"auf","meaning":"on · onto · to an island","pages":"269","uses":[["auf + Akkusativ · Wohin?","Going to an island.","Wir fahren auf die Insel Rügen.","We are going to the island of Rügen."],["auf + Dativ · Wo?","A position on a surface.","Das Buch liegt auf dem Tisch.","The book is on the table."]]},
+    {"lemma":"aus","meaning":"from · origin","pages":"269","uses":[["aus + Dativ · Woher?","Say where someone comes from.","Meine Freundin kommt aus der Türkei.","My friend comes from Turkey."]]},
+    {"lemma":"zu","meaning":"to","pages":"269","contraction":"zu dem → zum · zu der → zur","uses":[["zu + Dativ · Wohin?","A destination such as work or the station. Direction does not automatically mean accusative: zu takes dative.","Ich gehe zum Bahnhof.","I am walking to the station."]]},
+    {"lemma":"bei","meaning":"at someone’s place · with","pages":"269","uses":[["bei + Dativ · Wo?","Being at a person’s place.","Heute bin ich bei meinem Bruder.","Today I am at my brother’s place."]]},
+    {"lemma":"hinter","meaning":"behind","pages":"269","uses":[["hinter + Dativ · Wo?","A position behind something.","Die Tasche liegt hinter dem Stuhl.","The bag is behind the chair."]]},
+    {"lemma":"neben","meaning":"next to","pages":"269","uses":[["neben + Dativ · Wo?","A position beside something.","Das Bett steht neben dem Fenster.","The bed is next to the window."]]},
+    {"lemma":"über","meaning":"above","pages":"269","uses":[["über + Dativ · Wo?","A position above something.","Das Bild hängt über dem Sofa.","The picture is hanging above the sofa."]]},
+    {"lemma":"unter","meaning":"under","pages":"269","uses":[["unter + Dativ · Wo?","A position below something.","Die Schuhe stehen unter dem Bett.","The shoes are under the bed."]]},
+    {"lemma":"mit","meaning":"with · by","pages":"269","uses":[["mit + Dativ · Verkehrsmittel","Say which means of transport you use.","Sie fährt mit dem Bus zur Arbeit.","She goes to work by bus."]]},
+    {"lemma":"für","meaning":"for","pages":"269","uses":[["für + Akkusativ · intended use or relation","Say what something is for.","Ich kaufe eine Fahrkarte für den Bus.","I am buying a ticket for the bus."]]},
+    {"lemma":"gegen","meaning":"against","pages":"269","uses":[["gegen + Akkusativ · Beschwerden","A remedy for a health complaint.","Ich brauche etwas gegen Halsschmerzen.","I need something for a sore throat."]]},
+    {"lemma":"ohne","meaning":"without","pages":"269","uses":[["ohne + Akkusativ · absence","Say what is not included or what you do not have with you.","Ich trinke Tee ohne Zucker.","I drink tea without sugar."]]}
+  ]
+}

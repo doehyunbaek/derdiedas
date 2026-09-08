@@ -19,6 +19,8 @@ EXCLUDED_LEMMAS = {
     "dürfen", "mögen",
     # Compounds treated here as constructions with the excluded auxiliary.
     "loswerden", "fertigwerden",
+    # Covered by nehmen/halten rather than standalone verb entries.
+    "gefangennehmen", "gefangengehalen",
 }
 # Frequent tagging/spelling artifacts which unambiguously belong to an
 # excluded auxiliary lemma but are not represented as forms in Wiktionary.
@@ -34,6 +36,7 @@ LEMMA_CORRECTIONS = {
 }
 NON_VERB_LEMMAS = {
     "emfehlensweren", "empfehlensweren", "empfehlenswern",
+    "umfängen", "verfängen",
 }
 # Strict strong base verbs, using Duden's criterion (ablaut plus an -en
 # participle) and the numbered inventory at deutschplus.net. The inventory's
@@ -90,6 +93,7 @@ INSEPARABLE_PREFIXES = ("be", "emp", "ent", "er", "ge", "miss", "ver", "zer")
 STRONG_STEM_OVERRIDES = {
     # Relics/compounds whose shared base is not a literal suffix in the modern
     # spelling, or whose base has its own Hilfsverben tab.
+    "empfangen": "fangen",
     "auserkiesen": "kiesen",
     "erkiesen": "kiesen",
     "misslingen": "gelingen",
@@ -552,7 +556,8 @@ def export(raw_counts, counts, classes):
             raw_counts.get(lemma),
         )
         for lemma in sorted(
-            set(raw_counts) | set(counts) | set(classes),
+            (set(raw_counts) | set(counts) | set(classes))
+            - {"gefangennehmen", "gefangengehalen", "umfängen", "verfängen"},
             key=lambda value: (
                 ranks.get(value) is None,
                 ranks.get(value, 0),

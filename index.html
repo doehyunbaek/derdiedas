@@ -220,6 +220,15 @@
     .verb-card h2 { margin: 5px 0 12px; color: var(--der); font-family: Georgia, "Times New Roman", serif; font-size: 2rem; font-weight: 500; }
     .verb-card p { margin: 0 0 14px; line-height: 1.65; }
     .verb-card p:last-child { margin-bottom: 0; }
+    #aux-view .usage[data-aux-level="A2"] {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(49, 95, 154, .07);
+    }
+    #aux-view .conjugation-table [data-aux-level="A2"] {
+      background: rgba(49, 95, 154, .07);
+    }
     .construction { color: var(--muted); font-size: .84rem; }
     .example { padding: 12px 14px; border-left: 3px solid var(--der); background: rgba(49, 95, 154, .06); }
     .example strong { display: block; color: var(--ink); font-weight: 600; }
@@ -664,6 +673,8 @@
         <div class="verb-guide">
           <section class="verb-card">
             <span class="verb-number">01 · to be</span><h2>sein</h2>
+            <div class="usage" data-aux-level="A1"><p class="construction">Past states: <strong>war</strong> is commonly used instead of <strong>ist gewesen</strong>.</p><p class="example"><strong>Gestern war ich krank.</strong><span class="translation">Yesterday I was ill.</span></p></div>
+            <div class="usage" data-aux-level="A2" hidden><p class="construction">Polite suggestions use <strong>wäre</strong>.</p><p class="example"><strong>Wie wäre es mit einem Spaziergang?</strong><span class="translation">How about a walk?</span></p></div>
             <div class="usage">
               <p class="construction"><strong>sein + complement</strong> · describe identity, state, or location.</p>
               <p class="example"><strong>Sie ist Ärztin.</strong><span class="translation">She is a doctor.</span></p>
@@ -678,6 +689,8 @@
 
           <section class="verb-card">
             <span class="verb-number">02 · to have</span><h2>haben</h2>
+            <div class="usage" data-aux-level="A1"><p class="construction">Past possession or states: <strong>hatte</strong> is common instead of <strong>hat gehabt</strong>.</p><p class="example"><strong>Gestern hatte ich keine Zeit.</strong><span class="translation">Yesterday I had no time.</span></p></div>
+            <div class="usage" data-aux-level="A2" hidden><p class="construction">Use <strong>hätte</strong> for polite questions, beyond the fixed A1 expression.</p><p class="example"><strong>Hätten Sie einen Moment Zeit?</strong><span class="translation">Would you have a moment?</span></p></div>
             <div class="usage">
               <p class="construction"><strong>haben + object</strong> · express possession or family relationships.</p>
               <p class="example"><strong>Ich habe ein Auto.</strong><span class="translation">I have a car.</span></p>
@@ -692,6 +705,8 @@
 
           <section class="verb-card">
             <span class="verb-number">03 · to become</span><h2>werden</h2>
+            <div class="usage" data-aux-level="A2" hidden><p class="construction">Passive: <strong>werden + past participle</strong> puts the action first; use <strong>wurde</strong> in the Präteritum.</p><p class="example"><strong>Die Tür wird repariert.</strong><span class="translation">The door is being repaired.</span></p><p class="example"><strong>Die Tür wurde gestern repariert.</strong><span class="translation">The door was repaired yesterday.</span></p></div>
+            <div class="usage" data-aux-level="A2" hidden><p class="construction"><strong>würde + infinitive</strong>: polite preferences, suggestions, and requests (Konjunktiv II).</p><p class="example"><strong>Ich würde lieber zu Hause essen.</strong><span class="translation">I would rather eat at home.</span></p><p class="example"><strong>Würdest du bitte die Tür schließen?</strong><span class="translation">Would you please close the door?</span></p></div>
             <div class="usage">
               <p class="construction"><strong>werden + complement</strong> · describe a change in condition, profession, or age.</p>
               <p class="example"><strong>Es wird kalt.</strong><span class="translation">It is getting cold.</span></p>
@@ -705,6 +720,8 @@
 
           <section class="verb-card">
             <span class="verb-number">04 · can / to be able to</span><h2>können</h2>
+            <div class="usage" data-aux-level="A1"><p class="construction"><strong>konnte + infinitive</strong>: past ability or possibility.</p><p class="example"><strong>Ich konnte gestern nicht kommen.</strong><span class="translation">I could not come yesterday.</span></p></div>
+            <div class="usage" data-aux-level="A2" hidden><p class="construction"><strong>könnte + infinitive</strong>: polite requests or suggestions.</p><p class="example"><strong>Könntest du mir bitte helfen?</strong><span class="translation">Could you please help me?</span></p><p class="example"><strong>Wir könnten zusammen kochen.</strong><span class="translation">We could cook together.</span></p></div>
             <div class="usage">
               <p class="construction"><strong>können + infinitive</strong> · express ability or possibility.</p>
               <p class="example"><strong>Ich kann schwimmen.</strong><span class="translation">I can swim.</span></p>
@@ -717,6 +734,7 @@
 
           <section class="verb-card">
             <span class="verb-number">05 · must / to have to</span><h2>müssen</h2>
+            <div class="usage" data-aux-level="A1"><p class="construction"><strong>musste + infinitive</strong>: past necessity. Modal verbs commonly use the Präteritum, including in speech.</p><p class="example"><strong>Wir mussten lange warten.</strong><span class="translation">We had to wait a long time.</span></p></div>
             <div class="usage">
               <p class="construction"><strong>müssen + infinitive</strong> · express necessity, or with <strong>nicht</strong>, “not have to” rather than a prohibition.</p>
               <p class="example"><strong>Du musst gehen.</strong><span class="translation">You must leave.</span></p>
@@ -729,6 +747,7 @@
 
           <section class="verb-card">
             <span class="verb-number">06 · to want to</span><h2>wollen</h2>
+            <div class="usage" data-aux-level="A1"><p class="construction"><strong>wollte + infinitive</strong>: a past intention or wish.</p><p class="example"><strong>Ich wollte früher Pilot werden.</strong><span class="translation">I used to want to become a pilot.</span></p></div>
             <div class="usage"><p class="construction"><strong>wollen + infinitive</strong> · express an intention or plan.</p><p class="example"><strong>Wir wollen Deutsch lernen.</strong><span class="translation">We want to learn German.</span></p></div>
             <details class="conjugation"><summary>Konjugation</summary><table class="conjugation-table"><thead><tr><th>Person</th><th>Präsens</th><th>Präteritum</th><th>Konjunktiv II</th></tr></thead><tbody>
               <tr><th>ich</th><td>will</td><td>wollte</td><td>wollte</td></tr><tr><th>du</th><td>willst</td><td>wolltest</td><td>wolltest</td></tr><tr><th>er / sie / es</th><td>will</td><td>wollte</td><td>wollte</td></tr><tr><th>wir</th><td>wollen</td><td>wollten</td><td>wollten</td></tr><tr><th>ihr</th><td>wollt</td><td>wolltet</td><td>wolltet</td></tr><tr><th>sie / Sie</th><td>wollen</td><td>wollten</td><td>wollten</td></tr>
@@ -737,6 +756,8 @@
 
           <section class="verb-card">
             <span class="verb-number">07 · should / to be supposed to</span><h2>sollen</h2>
+            <div class="usage" data-aux-level="A1"><p class="construction"><strong>sollte + infinitive</strong>: a past instruction (Präteritum).</p><p class="example"><strong>Ich sollte gestern meine Chefin anrufen.</strong><span class="translation">I was supposed to call my boss yesterday.</span></p></div>
+            <div class="usage" data-aux-level="A2" hidden><p class="construction"><strong>sollte + infinitive</strong>: present advice (Konjunktiv II). Context distinguishes this from the identical past-tense form.</p><p class="example"><strong>Du solltest mehr Pausen machen.</strong><span class="translation">You should take more breaks.</span></p></div>
             <div class="usage">
               <p class="construction"><strong>sollen + infinitive</strong> · report someone’s instruction or request, or ask what they want you to do.</p>
               <p class="example"><strong>Ich soll den Arzt anrufen.</strong><span class="translation">I am supposed to call the doctor.</span></p>
@@ -749,6 +770,7 @@
 
           <section class="verb-card">
             <span class="verb-number">08 · may / to be allowed to</span><h2>dürfen</h2>
+            <div class="usage" data-aux-level="A1"><p class="construction"><strong>durfte + infinitive</strong>: past permission; <strong>durfte nicht</strong>: past prohibition.</p><p class="example"><strong>Als Kind durfte ich nicht allein ins Kino gehen.</strong><span class="translation">As a child, I was not allowed to go to the cinema alone.</span></p></div>
             <div class="usage">
               <p class="construction"><strong>dürfen + infinitive</strong> · express permission, or with <strong>nicht</strong>, a prohibition.</p>
               <p class="example"><strong>Darf ich hereinkommen?</strong><span class="translation">May I come in?</span></p>
@@ -761,6 +783,7 @@
 
           <section class="verb-card">
             <span class="verb-number">09 · to like / would like</span><h2>mögen</h2>
+            <div class="usage" data-aux-level="A2" hidden><p class="construction"><strong>mochte + object</strong>: past likes or dislikes. Do not confuse <strong>mochte</strong> (liked) with <strong>möchte</strong> (would like).</p><p class="example"><strong>Früher mochte ich keinen Käse.</strong><span class="translation">I used to dislike cheese.</span></p></div>
             <div class="usage">
               <p class="construction"><strong>mögen + object</strong> · express likes or, with a negative, dislikes.</p>
               <p class="example"><strong>Ich mag Kaffee.</strong><span class="translation">I like coffee.</span></p>
@@ -839,17 +862,29 @@
     const conjugations = [...document.querySelectorAll('.conjugation')];
     const auxCefrButtons = [...document.querySelectorAll('[data-aux-cefr]')];
 
-    // Spektrum A1+, pp. 263–265: present, past, möchte and the fixed
-    // request hätte gern, not general Konjunktiv II paradigms.
+    // Keep cumulative additions after the existing A1 uses, before tables.
+    document.querySelectorAll('#aux-view .verb-card').forEach(card => {
+      const table = card.querySelector('.conjugation');
+      ['A1', 'A2'].forEach(level => {
+        card.querySelectorAll(`.usage[data-aux-level="${level}"]`).forEach(usage => {
+          card.insertBefore(usage, table);
+        });
+      });
+    });
+
+    // Preserve all cells so switching levels is reversible. A2 paradigms:
+    // Spektrum A2+, pp. 29, 71, 154, 176, 196–197, 241.
     conjugations.forEach(details => {
-      const isMoegen = details.closest('.verb-card').querySelector('h2').textContent === 'mögen';
+      const verb = details.closest('.verb-card').querySelector('h2').textContent;
       details.querySelectorAll('tr').forEach(row => {
-        if (isMoegen) {
-          row.children[3].textContent = row.children[3].textContent === 'Konjunktiv II'
-            ? 'möchte' : row.children[3].textContent;
-          row.children[2].remove();
+        if (verb === 'mögen') {
+          row.children[2].dataset.auxLevel = 'A2';
+        } else if (['sein', 'haben', 'werden', 'können', 'sollen'].includes(verb)) {
+          row.children[3].dataset.auxLevel = 'A2';
         } else {
-          row.children[3].remove();
+          // General müsste/dürfte/wollte subjunctive paradigms are not
+          // part of the verified A2 uses.
+          row.children[3].hidden = true;
         }
       });
     });
@@ -861,9 +896,12 @@
         button.classList.toggle('active', active);
         button.setAttribute('aria-pressed', active);
       });
+      document.querySelectorAll('[data-aux-level]').forEach(usage => {
+        usage.hidden = usage.dataset.auxLevel === 'A2' && level === 'A1';
+      });
       document.querySelector('#aux-level-note').textContent =
         `Cumulative through ${level}.`
-        + (level === 'A1' ? '' : ' A1 uses retained; no additional A2/B1 uses have been verified from a supplied source.');
+        + (level === 'B1' ? ' A1/A2 uses retained; no additional B1 uses verified.' : '');
       if (updateUrl) {
         const url = new URL(window.location.href);
         url.searchParams.set('aux-cefr', level);
